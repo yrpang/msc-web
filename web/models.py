@@ -50,7 +50,7 @@ class Questions(models.Model):
 
 class Answers(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE)
-    question = models.ForeignKey(Questions, on_delete=models.CASCADE)
+    question = models.ForeignKey(Questions, on_delete=models.CASCADE,related_name="ans")
     answer = models.CharField(blank=False, max_length=1200)
     c_time = models.TimeField(auto_now_add=True)
 

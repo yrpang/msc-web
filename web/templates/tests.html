@@ -22,42 +22,10 @@
         {{ formset.management_form }}
         {% csrf_token %}
 
-        {% for q in question %}
-            {{q.title}}
-            {{q.detail}}
-        {% endfor %}
-
-        {% for form in formset %}
-            {{form}}
-        {% endfor %}
+        {{formset}}
+        
         <button type="submit">保存</button>
     </form>
-
-
-
-    {% comment %} <form action="/answer/{{request.session.user_id}}" id="answer" method="post">
-        {% csrf_token %}
-        {% for q in web %}
-            问题{{forloop.counter}}
-            <div class="form-group">
-                <li>{{q.title}}</li>
-                <li>{{q.detail}}</li>
-                <input type="text" name="{{q.id}}" value="{{ans}}">
-            </div>
-        {% empty %}
-            <li>咕咕咕</li>
-        {% endfor %}
-        <button type="submit">保存</button>
-    </form>  {% endcomment %}
-
-    {% comment %} <form action="/answer/{{request.session.user_id}}" id="answer" method="post">{% csrf_token %}
-    {{ formset.management_form }}
-    <table>
-        {% for form in formset %}
-            {{form}}
-        {% endfor %}
-    </table>
-    <button type="submit">保存</button> {% endcomment %}
 </form>
 
 
