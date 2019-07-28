@@ -21,12 +21,14 @@
     <form action="/tests/" id="answer" method="post">
         {{ formset.management_form }}
         {% csrf_token %}
+
+        {% for q in question %}
+            {{q.title}}
+            {{q.detail}}
+        {% endfor %}
+
         {% for form in formset %}
-            {% with a=0 %}
-            {{a}}
-            {{question.a}}
             {{form}}
-            {%endwith%}
         {% endfor %}
         <button type="submit">保存</button>
     </form>

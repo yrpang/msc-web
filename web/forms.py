@@ -43,5 +43,5 @@ QuestionsFormSet = modelformset_factory(Questions, form=QuestionsForm)
 
 
 class AnswerForm(forms.Form):
-    answer = forms.CharField(label="你的答案")
-AnswerFormSet = formset_factory(AnswerForm)
+    answer = forms.CharField(label="你的答案",required=False)
+AnswerFormSet = formset_factory(AnswerForm, extra=2)

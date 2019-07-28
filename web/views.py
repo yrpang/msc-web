@@ -1,8 +1,11 @@
 from django.shortcuts import render,redirect
 from . import models
-from .forms import UserForm, RegisterForm, AnswersFormSet, QuestionsFormSet, AnswerFormSet
+from .forms import UserForm, RegisterForm, AnswersFormSet, QuestionsFormSet, AnswerFormSet, AnswerForm
 import hashlib
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
+from django.forms import formset_factory
+
+
  
 def hash_code(s, salt='mysite'):# 加点盐
     h = hashlib.sha256()
@@ -84,23 +87,47 @@ def logout(request):
 
 
 def tests(request):
-    if request.method == 'POST':
-        ans = AnswerFormSet(request.POST)
-        print(ans)
-
     if not request.session.get('is_login', None):
         return redirect("/login/")
 
-    formset = AnswerFormSet()
-    question = models.Questions.objects.all()
+    count = models.Questions.objects.count()
+    
+
+    AnswerFormSet = formset_factory(AnswerForm, extra=2, max_num=count)
+
+    if request.method == 'POST':
+        ans = AnswerFormSet(request.POST)
+        
+        ans=ans.cleaned_data
+        user = models.User.objects.get(id=request.session.get('user_id'))
+        question = models.Questions.objects.all().order_by('id')
+
+        for i in range(count):
+            if ans[i]:
+                try:
+                    a=models.Answers.objects.get(user__id=request.session.get('user_id'), question=question[i])
+                    a.answer = ans[i]['answer']
+                    a.save()
+                except models.Answers.DoesNotExist:
+                    models.Answers.objects.create(user = user, question=question[i],answer=ans[i]['answer'])
+            else:
+                models.Answers.objects.create(user = user, question=question[i], answer=" ")
+        formset = AnswerFormSet(request.POST)
+        return render(request, 'tests.html', locals())
+        
+
+    ans = models.Answers.objects.filter(user__id = request.session.get('user_id')).order_by('question__id')
+
+    ini = [{'answer': i.answer} for i in ans]
+
+    
+
+    formset = AnswerFormSet(initial=ini)
+    question = models.Questions.objects.all().order_by('id')
 
     return render(request, 'tests.html', locals())
 
     
-
-
-
-
 
 
 #     # formset = QuestionsFormSet(queryset=models.Questions.objects.filter(answers__user__id=request.session.get('user_id')))
