@@ -33,11 +33,23 @@ class User(models.Model):
         verbose_name = '面试名单'
         verbose_name_plural = '面试名单'
 
+class Category(models.Model):
+    name = models.CharField(max_length=32, blank=True, null=True)
+    
+
+    class Meta:
+        verbose_name = "分类"
+        verbose_name_plural = "分类"
+
+    def __str__(self):
+        return self.name
+
 
 class Questions(models.Model):
     title = models.CharField("题目", max_length=256, blank=False)
     detail = models.CharField("题目描述",blank=False, max_length=1200)
-    author=models.CharField("出题人", blank=True, null=True, max_length=64)
+    author = models.CharField("出题人", blank=True, null=True, max_length=64)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     
 
     def __str__(self):

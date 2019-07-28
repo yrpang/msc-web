@@ -2,6 +2,10 @@
 {% load staticfiles %}
 {% block title %}福利题{% endblock %}
 
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/tests.css' %}">
+{% endblock %}
+
 {% block navigate %}
     <ul class="nav navbar-nav">
         <li ><a href="/">主页</a></li>
@@ -9,24 +13,40 @@
     </ul>
 {% endblock navigate %}
 
+{% load mytags %}
 
 {% block content %}
-    {% if request.session.is_login %}
-    <h1>你好,{{ request.session.user_name }}！</h1>
-    <h3>福利题啦啦啦</h3>
-    {% else %}
-    <h1>福利题啦啦啦</h1>
-    {% endif %}
+    <div class="container">
+    <div class="col-md-4 col-md-offset-4">
+        <h1 class="text-center">福利题</h1>
+        {% if request.session.is_login %}
+        <h2 class="text-center">你好,{{ request.session.user_name }}！</h2>
+        {% endif %}
 
-    <form action="/tests/" id="answer" method="post">
-        {{ formset.management_form }}
-        {% csrf_token %}
+        <form class='form-login' action="/tests/" id="answer" method="post">
+            {{ formset.management_form }}
+            {% csrf_token %}
+            {% if message %}
+                <div class="alert alert-warning">{{ message }}</div>
+            {% endif %}
 
-        {{formset}}
+            {% for form in formset %}
+            {% ifequal form.auto_id|f1 'web' %}
+                <div class="form-group">
+                    问题:{{forloop.counter}}
+                    {{ form.label }}
+                    {{ form.help_text}}
+                    {{form}}
+                </div>
+            {% endifequal %}
+
+            {% endfor %}
         
-        <button type="submit">保存</button>
-    </form>
-</form>
+            <button type="reset" class="btn btn-default pull-left">重置</button>
+            <button type="submit" class="btn btn-primary pull-right ">保存</button>
+        </form>
+    </div>
+    </div> <!-- /container -->
 
 
 {% endblock content %}

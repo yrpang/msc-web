@@ -7,5 +7,4 @@ urlpatterns = [
     path('logout/',views.logout),
     path('register/',views.register),
     path('tests/',views.tests),
-    # path('answer/<int:user_id>',views.answer)
 ]

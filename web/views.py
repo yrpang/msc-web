@@ -45,7 +45,6 @@ def login(request):
  
 def register(request):
     if request.session.get('is_login', None):
-        # 登录状态不允许注册。你可以修改这条原则！
         return redirect("/")
     if request.method == "POST":
         register_form = RegisterForm(request.POST)
@@ -86,14 +85,16 @@ def logout(request):
 
 
 def tests(request):
-
+    if not request.session.get('is_login', None):
+        return redirect("/login/")
     field_dict={}
     question = models.Questions.objects.all().order_by('id')
     for q in question:
-        field_dict['question_%s' %q.id] = fields.CharField(
+        field_dict['%s_%s' %(q.category.name,q.id)] = fields.CharField(
                     required=False,
                     label = q.title,
-                    widget = widgets.Textarea
+                    help_text=q.detail,
+                    widget = widgets.TextInput(attrs={'class': 'form-control'})
                 )
 
     MyAnswerForm = type('MyAnswerForm', (Form,), field_dict)
@@ -101,7 +102,13 @@ def tests(request):
     if request.method == 'GET':
         ini = {}
         for q in question:
-            ini['question_%s'%q.id] = q.ans.first().answer
+            try:
+                a = q.ans.first().answer
+                ini['%s_%s'%(q.category.name,q.id)] = q.ans.first().answer
+            except:
+                ini['%s_%s'%(q.category.name,q.id)] = ""
+
+            
         formset = MyAnswerForm(initial=ini)
         return render(request, 'tests.html', {'formset':formset})
 
@@ -119,8 +126,8 @@ def tests(request):
                     a.answer=v
                     a.save()
                 except models.Answers.DoesNotExist:
-                    q = models.objcets.get(id=qid)
-                    models.objects.create(user=user, question=q, answer=v)
+                    q = models.Questions.objects.get(id=qid)
+                    models.Answers.objects.create(user=user, question=q, answer=v)
         formset = MyAnswerForm(request.POST)
         return render(request, 'tests.html', {'formset':formset})
     
