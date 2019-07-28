@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from . import models
-from .forms import UserForm, RegisterForm, AnswerForm
+from .forms import UserForm, RegisterForm, AnswersFormSet, QuestionsFormSet, AnswerFormSet
 import hashlib
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
  
@@ -84,19 +84,69 @@ def logout(request):
 
 
 def tests(request):
+    if request.method == 'POST':
+        ans = AnswerFormSet(request.POST)
+        print(ans)
+
     if not request.session.get('is_login', None):
         return redirect("/login/")
-    web = models.Questions.objects.all()
 
-    if request.method == "POST":
-        answer_form = AnswerForm(request.POST)
-        result = request.POST.getlist('answer', '') 
-        return render(request, 'tests.html', locals())
-    
-    answer_form = AnswerForm(request.POST)
+    formset = AnswerFormSet()
+    question = models.Questions.objects.all()
+
     return render(request, 'tests.html', locals())
 
+    
 
-def answer(request, user_id):
-    if request.method == "GET":
-        return HttpResponseForbidden()
+
+
+
+
+
+#     # formset = QuestionsFormSet(queryset=models.Questions.objects.filter(answers__user__id=request.session.get('user_id')))
+#     # formset = AnswersFormSet(queryset=models.Answers.objects.filter(user__id=request.session.get('user_id')))
+
+#     web = models.Questions.objects.all()
+
+#     return render(request, 'tests.html', locals())
+
+
+# def answer(request, user_id):
+#     if request.method == "GET":
+#         return HttpResponseForbidden()
+
+#     try:
+#         user = models.User.objects.get(id=user_id)
+#     except models.User.DoesNotExist:
+#         return HttpResponseForbidden()
+
+
+# 尝试手动建立动态表单 没成功
+    # ans = request.POST.dict()
+    # ans.pop('csrfmiddlewaretoken')
+
+    # for i in ans:
+    #     try:
+    #         question= models.Questions.objects.get(id = i)
+    #     except models.Questions.DoesNotExist:
+    #         return HttpResponseForbidden()
+        
+    #     try:
+    #         tem = models.Answers.objects.get(user = user, question=question)
+    #         tem.answer = ans[i]
+    #         tem.save()
+    #     except models.Answers.DoesNotExist:
+    #         models.Answers.objects.create(user=user, question=question, answer=ans[i])
+    #     print(locals())
+
+
+# 尝试使用FormSet建立动态表单 没成功
+    # AnswerSet = AnswersFormSet(request.POST)
+    # for i in AnswerSet:
+    #     i.instance.user = user # 要实例化才行
+    #     i.save()
+    #     print(i)
+
+
+
+    # return redirect("/tests/")

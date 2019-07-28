@@ -56,7 +56,7 @@ class Answers(models.Model):
 
 
     def __str__(self):
-        return self.question
+        return self.question.title
 
     class Meta:
         ordering = ['-c_time']
