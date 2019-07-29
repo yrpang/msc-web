@@ -4,16 +4,27 @@
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/register.css' %}">
 {% endblock %}
+
+{% load mytags %}
 {% block content %}
     <div class="container">
         <div class="col-md-4 col-md-offset-4">
           <form class='form-register' action="/register/" method="post">
- 
               {% if message %}
                   <div class="alert alert-warning">{{ message }}</div>
               {% endif %}
+              {% if error %}
+
+                {% for e in error|error_msg %}
+                    <div class="alert alert-warning">{{e}}</div>
+                {% endfor %}
+                
+              
+              {% endif %}
  
               {% csrf_token %}
+
+            
  
               <h2 class="text-center">欢迎注册</h2>
               <div class="form-group">
@@ -39,6 +50,7 @@
               <div class="form-group">
                   {{ register_form.birth.label_tag }}
                   {{ register_form.birth}}
+                  
               </div>
               <div class="form-group">
                   {{ register_form.qq.label_tag }}

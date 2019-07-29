@@ -5,6 +5,7 @@ import hashlib
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
 from django.forms import formset_factory, Form,fields,widgets
 
+
  
 def hash_code(s, salt='mysite'):# 加点盐
     h = hashlib.sha256()
@@ -48,7 +49,7 @@ def register(request):
         return redirect("/")
     if request.method == "POST":
         register_form = RegisterForm(request.POST)
-        message = "请检查填写的内容！"
+        
         if register_form.is_valid():  # 获取数据
             name = register_form.cleaned_data['name']
             sex = register_form.cleaned_data['sex']
@@ -74,6 +75,9 @@ def register(request):
                 new_user = models.User.objects.create(name=name, password=hash_code(password1), email=email, sex=sex, phone=phone, qq=qq, self_introduction=self_introduction, birth=birth)
 
                 return redirect('/login/')  # 自动跳转到登录页面
+        else:
+            error = register_form.errors
+            return render(request, 'login/register.html', locals())
     register_form = RegisterForm()
     return render(request, 'login/register.html', locals())
  

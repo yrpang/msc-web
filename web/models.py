@@ -11,8 +11,8 @@ class User(models.Model):
     email = models.EmailField("邮箱", unique=True,blank=False)
     password = models.CharField("密码", max_length=256,blank=False)
     birth = models.DateField("出生日期", blank=False)
-    qq = models.BigIntegerField("QQ", blank=False)
-    phone=models.IntegerField("手机号", blank=False)
+    qq = models.CharField("QQ", max_length=64, blank=False)
+    phone=models.CharField("手机号", max_length=64 ,blank=False)
     self_introduction = models.CharField("自我介绍", max_length=2000, blank=False)
     c_time = models.DateTimeField("注册时间", auto_now_add=True)
     
