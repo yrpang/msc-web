@@ -3,20 +3,20 @@
 {% block title %}福利题{% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/tests.css' %}">
+<link rel="stylesheet" href="{% static 'css/tests.css' %}">
 {% endblock %}
 
 {% block navigate %}
-    <ul class="nav navbar-nav">
-        <li ><a href="/">主页</a></li>
-        <li class="active"><a href="/tests">福利题</a></li>
-    </ul>
+<ul class="nav navbar-nav">
+    <li><a href="/">主页</a></li>
+    <li class="active"><a href="/tests">福利题</a></li>
+</ul>
 {% endblock navigate %}
 
 {% load mytags %}
 
 {% block content %}
-    <div class="container">
+<div class="container">
     <div class="col-md-4 col-md-offset-4">
         <h1 class="text-center">福利题</h1>
         {% if request.session.is_login %}
@@ -27,26 +27,26 @@
             {{ formset.management_form }}
             {% csrf_token %}
             {% if message %}
-                <div class="alert alert-warning">{{ message }}</div>
+            <div class="alert alert-warning">{{ message }}</div>
             {% endif %}
 
             {% for form in formset %}
             {% ifequal form.auto_id|f1 'web' %}
-                <div class="form-group">
-                    问题{{forloop.counter}}:
-                    {{ form.label }}
-                    {{ form.help_text}}
-                    {{form}}
-                </div>
+            <div class="form-group">
+                问题{{forloop.counter}}:
+                {{ form.label }}
+                {{ form.help_text}}
+                {{form}}
+            </div>
             {% endifequal %}
 
             {% endfor %}
-        
+
             <button type="reset" class="btn btn-default pull-left">重置</button>
             <button type="submit" class="btn btn-primary pull-right ">保存</button>
         </form>
     </div>
-    </div> <!-- /container -->
+</div> <!-- /container -->
 
 
 {% endblock content %}

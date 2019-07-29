@@ -27,17 +27,18 @@ class RegisterForm(forms.Form):
         attrs={'class': 'form-control'}))
     password2 = forms.CharField(label="确认密码", max_length=256, widget=forms.PasswordInput(
         attrs={'class': 'form-control'}))
-    birth = forms.DateField(error_messages={'invalid':'出生日期格式错误 正确样例1999-01-01'}, label='出生日期', widget=forms.DateInput(
-        format=('%d-%m-%Y'), attrs={'class': 'form-control', 'placeholder':'1999-01-01'}))
+    birth = forms.DateField(error_messages={'invalid': '出生日期格式错误 正确样例1999-01-01'}, label='出生日期', widget=forms.DateInput(
+        format=('%d-%m-%Y'), attrs={'class': 'form-control', 'placeholder': '1999-01-01'}))
     qq = forms.CharField(label='QQ', widget=forms.TextInput(
         attrs={'class': 'form-control'}))
 
     def phone_valid(value):
-        mobile_re = re.compile(r'^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$')
+        mobile_re = re.compile(
+            r'^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$')
         if not mobile_re.match(value):
             raise ValidationError('手机号码格式错误')
     phone = forms.CharField(label='手机', widget=forms.TextInput(
         attrs={'class': 'form-control'}), validators=[phone_valid, ])
 
     self_introduction = forms.CharField(
-        label="自我介绍", max_length=640, widget=forms.Textarea(attrs={'class': 'form-control','rows':6, 'cols': 40, 'placeholder':'简单介绍一下自己吧'}))
+        label="自我介绍", max_length=640, widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 6, 'cols': 40, 'placeholder': '简单介绍一下自己吧'}))
