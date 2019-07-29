@@ -25,7 +25,7 @@ SECRET_KEY = 'o@xf6ebf-k3^qb+e^x#f_mpct$ax2fwcr0w5w3n5ap9d36l=hy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['demo.pangyiren.com']
 
 
 # Application definition

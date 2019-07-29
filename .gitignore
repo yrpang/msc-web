@@ -7,3 +7,6 @@ simpleui
 media
 *.sqlite3
 migrations
+*.ini
+*.sock
+*/migrations/*
