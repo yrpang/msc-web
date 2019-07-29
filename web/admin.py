@@ -33,4 +33,4 @@ class UserAdmin(admin.ModelAdmin):
 
 admin.site.register(User, UserAdmin)
 
-admin.site.register([Questions, Answers, Category])
+admin.site.register([Questions, Answers, Category, ConfirmString])

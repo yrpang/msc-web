@@ -126,3 +126,10 @@ STATIC_URL = '/static/'
 # STATIC_ROOT = './static'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 SIMPLEUI_STATIC_OFFLINE = True
+
+
+EMAIL_HOST = 'smtp.office365.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER='norelply@xdmsc.club'
+EMAIL_HOST_PASSWORD = 'PPP.ang1999'
+EMAIL_USE_TLS = True

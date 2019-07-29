@@ -4,6 +4,8 @@ from .forms import UserForm, RegisterForm
 import hashlib
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
 from django.forms import formset_factory, Form, fields, widgets
+import datetime
+from django.conf import settings
 
 
 def hash_code(s, salt='mysite'):  # 加点盐
@@ -30,6 +32,9 @@ def login(request):
             password = login_form.cleaned_data['password']
             try:
                 user = models.User.objects.get(email=email)
+                if not user.has_confirmed:
+                    message = '您还未经过邮件确认，请检查您的注册邮箱！'
+                    return render(request, 'login/login.html', locals())
                 if user.password == hash_code(password):
                     request.session['is_login'] = True
                     request.session['user_id'] = user.id
@@ -39,10 +44,40 @@ def login(request):
                     message = "密码不正确！"
             except:
                 message = "用户不存在！"
+            
+
         return render(request, 'login/login.html', locals())
 
     login_form = UserForm()
     return render(request, 'login/login.html', locals())
+
+
+def make_confirm_string(user):
+    now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    code = hash_code(user.name, now)
+    models.ConfirmString.objects.create(code=code, user=user,)
+    return code
+
+
+def send_email(email, code):
+
+    from django.core.mail import EmailMultiAlternatives
+
+    subject = 'XDMSC注册确认'
+
+    text_content = '欢迎加入XDMSC的大家庭，请复制链接https://{}/confirm/?code={} 到浏览器进行确认，有效期3天'.format(
+        'demo.pangyiren.com', code)
+
+    html_content = '''
+                    <p>感谢注册XDMSC<a href="https://{}/confirm/?code={}" target=blank></p>
+                    <p>请点击站点链接完成注册确认！</p>
+                    <p>此链接有效期为3天！</p>
+                    '''.format('demo.pangyiren.com', code)
+
+    msg = EmailMultiAlternatives(
+        subject, text_content, settings.EMAIL_HOST_USER, [email])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
 
 
 def register(request):
@@ -77,12 +112,37 @@ def register(request):
                 new_user = models.User.objects.create(name=name, password=hash_code(
                     password1), email=email, sex=sex, phone=phone, qq=qq, self_introduction=self_introduction, birth=birth)
 
+                code = make_confirm_string(new_user)
+
                 return redirect('/login/')  # 自动跳转到登录页面
         else:
             error = register_form.errors
             return render(request, 'login/register.html', locals())
     register_form = RegisterForm()
     return render(request, 'login/register.html', locals())
+
+
+def user_confirm(request):
+    code = request.GET.get('code', None)
+    message = ''
+    try:
+        confirm = models.ConfirmString.objects.get(code=code)
+    except:
+        message = '无效的确认请求!'
+        return render(request, 'login/confirm.html', locals())
+
+    c_time = confirm.c_time
+    now = datetime.datetime.now()
+    if now > c_time + datetime.timedelta(3):
+        confirm.user.delete()
+        message = '您的邮件已经过期！请重新注册!'
+        return render(request, 'login/confirm.html', locals())
+    else:
+        confirm.user.has_confirmed = True
+        confirm.user.save()
+        confirm.delete()
+        message = '感谢确认，请使用账户登录！'
+        return render(request, 'login/confirm.html', locals())
 
 
 def logout(request):

@@ -16,6 +16,7 @@ class User(models.Model):
     phone = models.CharField("手机号", max_length=64, blank=False)
     self_introduction = models.CharField("自我介绍", max_length=2000, blank=False)
     c_time = models.DateTimeField("注册时间", auto_now_add=True)
+    has_confirmed = models.BooleanField(default=False)
 
     STATESCHOICE = [
         (0, '等待面试'),
@@ -74,3 +75,18 @@ class Answers(models.Model):
         ordering = ['-c_time']
         verbose_name = '作答'
         verbose_name_plural = '作答'
+
+
+class ConfirmString(models.Model):
+    code = models.CharField(max_length=256)
+    user = models.OneToOneField('User', on_delete=models.CASCADE)
+    c_time = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.user.name + ":   " + self.code
+
+    class Meta:
+
+        ordering = ["-c_time"]
+        verbose_name = "确认码"
+        verbose_name_plural = "确认码"

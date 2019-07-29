@@ -1,0 +1,14 @@
+{% extends 'login/base.html' %}
+{% load staticfiles %}
+{% block title %}注册确认{% endblock %}
+
+{% block content %}
+
+<h1 style="margin-left: 100px;">{{ message }}</h1>
+<script>
+    window.setTimeout("window.location='/login/'", 2000);
+</script>
+
+
+
+{% endblock %}
