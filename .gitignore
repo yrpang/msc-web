@@ -10,3 +10,4 @@ migrations
 *.ini
 *.sock
 */migrations/*
+*.log
