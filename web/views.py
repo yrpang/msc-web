@@ -6,6 +6,7 @@ from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
 from django.forms import formset_factory, Form, fields, widgets
 import datetime
 from django.conf import settings
+from django.utils import timezone
 
 
 def hash_code(s, salt='mysite'):  # 加点盐
@@ -69,8 +70,8 @@ def send_email(email, code):
         'demo.pangyiren.com', code)
 
     html_content = '''
-                    <p>感谢注册XDMSC<a href="https://{}/confirm/?code={}" target=blank></p>
-                    <p>请点击站点链接完成注册确认！</p>
+                    <p>欢迎加入XDMSC大家庭</p>
+                    <p>请点击<a href="https://{}/confirm/?code={}" target=blank>该链接</a>完成注册确认！</p>
                     <p>此链接有效期为3天！</p>
                     '''.format('demo.pangyiren.com', code)
 
@@ -113,7 +114,7 @@ def register(request):
                     password1), email=email, sex=sex, phone=phone, qq=qq, self_introduction=self_introduction, birth=birth)
 
                 code = make_confirm_string(new_user)
-
+                send_email(email, code)
                 return redirect('/login/')  # 自动跳转到登录页面
         else:
             error = register_form.errors
@@ -132,7 +133,7 @@ def user_confirm(request):
         return render(request, 'login/confirm.html', locals())
 
     c_time = confirm.c_time
-    now = datetime.datetime.now()
+    now = timezone.now()
     if now > c_time + datetime.timedelta(3):
         confirm.user.delete()
         message = '您的邮件已经过期！请重新注册!'
