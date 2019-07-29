@@ -49,7 +49,7 @@ def register(request):
         return redirect("/")
     if request.method == "POST":
         register_form = RegisterForm(request.POST)
-        
+        message="未知错误，请联系管理"
         if register_form.is_valid():  # 获取数据
             name = register_form.cleaned_data['name']
             sex = register_form.cleaned_data['sex']
@@ -66,6 +66,7 @@ def register(request):
                 return render(request, 'login/register.html', locals())
             else:
                 same_email_user = models.User.objects.filter(email=email)
+                print(same_email_user)
                 if same_email_user:  # 邮箱地址唯一
                     message = '该邮箱地址已被注册，请使用别的邮箱！'
                     return render(request, 'login/register.html', locals())
