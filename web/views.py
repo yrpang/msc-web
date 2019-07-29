@@ -171,7 +171,8 @@ def tests(request):
         ini = {}
         for q in question:
             try:
-                a = models.Answers.objects.get(user__id = request.session.get('user_id'), question = q)
+                a = models.Answers.objects.get(
+                    user__id=request.session.get('user_id'), question=q)
                 ini['%s_%s' % (q.category.name, q.id)] = a.answer
             except models.Answers.DoesNotExist:
                 ini['%s_%s' % (q.category.name, q.id)] = ""
