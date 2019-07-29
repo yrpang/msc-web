@@ -33,7 +33,7 @@
             {% for form in formset %}
             {% ifequal form.auto_id|f1 'web' %}
                 <div class="form-group">
-                    问题:{{forloop.counter}}
+                    问题{{forloop.counter}}：
                     {{ form.label }}
                     {{ form.help_text}}
                     {{form}}
