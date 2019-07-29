@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'o@xf6ebf-k3^qb+e^x#f_mpct$ax2fwcr0w5w3n5ap9d36l=hy'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['demo.pangyiren.com', 'democ.pangyiren.com']
+ALLOWED_HOSTS = ['demo.pangyiren.com']
 
 CSRF_TRUSTED_ORIGINS = ['demo.pangyiren.com']
 # Application definition

@@ -45,7 +45,6 @@ def login(request):
                     message = "密码不正确！"
             except:
                 message = "用户不存在！"
-            
 
         return render(request, 'login/login.html', locals())
 

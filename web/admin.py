@@ -7,7 +7,7 @@ class AnswersInline(admin.TabularInline):
 
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('name', 'status', 'sex', 'email', 'c_time')
+    list_display = ('name', 'status', 'sex', 'email', 'c_time', 'has_confirmed')
     list_filter = ('sex', 'status')
     search_fields = ('name',)
     list_per_page = 20

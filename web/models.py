@@ -16,7 +16,7 @@ class User(models.Model):
     phone = models.CharField("手机号", max_length=64, blank=False)
     self_introduction = models.CharField("自我介绍", max_length=2000, blank=False)
     c_time = models.DateTimeField("注册时间", auto_now_add=True)
-    has_confirmed = models.BooleanField(default=False)
+    has_confirmed = models.BooleanField("是否已经邮件确认",default=False)
 
     STATESCHOICE = [
         (0, '等待面试'),
