@@ -20,9 +20,11 @@ class User(models.Model):
 
     STATESCHOICE = [
         (0, '等待面试'),
-        (1, '通过'),
-        (2, '淘汰'),
-        (3, '待定'),
+        (1, '一面通过'),
+        (2, '一面淘汰'),
+        (3, '二面通过'),
+        (4, '二面淘汰'),
+        (5, '状态待定')
     ]
     status = models.IntegerField(
         "面试状态", choices=STATESCHOICE, blank=False, default=0)
