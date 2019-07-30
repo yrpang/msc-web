@@ -17,6 +17,6 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('secret/', admin.site.urls),
+    path('msc-2019-secret-panel/', admin.site.urls),
     path('', include('web.urls'))
 ]

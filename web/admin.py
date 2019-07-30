@@ -28,7 +28,7 @@ class UserAdmin(admin.ModelAdmin):
         }),
         ('面试状态', {
             "fields": (
-                'status',
+                'status','something'
             ),
         }),
     )
@@ -36,4 +36,4 @@ class UserAdmin(admin.ModelAdmin):
 
 admin.site.register(User, UserAdmin)
 
-admin.site.register([Questions, Answers, Category, ConfirmString])
+admin.site.register([Questions, Category, ConfirmString])

@@ -28,6 +28,7 @@ class User(models.Model):
     ]
     status = models.IntegerField(
         "面试状态", choices=STATESCHOICE, blank=False, default=0)
+    something = models.CharField("面试备注", max_length=256, blank=True, null=True)
 
     def __str__(self):
         return self.name
