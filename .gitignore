@@ -11,3 +11,4 @@ migrations
 *.sock
 */migrations/*
 *.log
+settings.py
