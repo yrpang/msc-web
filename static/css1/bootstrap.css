@@ -7540,17 +7540,3 @@ a:focus {
 .pic:hover p {
     color: #fff
 }
-
-a.btt {
-    display: block;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    color: #fff;
-    position: fixed;
-    background: #3BD92E;
-    border-radius: 50%;
-    bottom: 50px;
-    right: 50px;
-    text-align: center
-}
