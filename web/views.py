@@ -72,7 +72,7 @@ def send_email(email, code):
                     <p>欢迎加入XDMSC大家庭</p>
                     <p>请点击链接<a href="https://{}/confirm/?code={}" target=blank>https://{}/confirm/?code={}</a>完成注册确认！</p>
                     <p>此链接有效期为3天！</p>
-                    '''.format('demo.pangyiren.com', code, 'demo.pangyiren.com', code)
+                    '''.format('www.xdmsc.club', code, 'www.xdmsc.club', code)
 
     msg = EmailMultiAlternatives(
         subject, text_content, settings.EMAIL_HOST_USER, [email])
