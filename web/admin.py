@@ -1,6 +1,9 @@
 from django.contrib import admin
 from .models import *
 
+admin.site.site_header = 'XDMSC招新管理'
+admin.site.site_title = 'XDMSC招新管理'
+admin.site.index_title = 'XDMSC招新管理'
 
 class AnswersInline(admin.TabularInline):
     model = Answers
