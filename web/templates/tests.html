@@ -30,6 +30,34 @@
                 {% if message %}
                 <div class="alert alert-warning">{{ message }}</div>
                 {% endif %}
+                
+                <h3>媒体部</h3>
+                {% for form in formset %}
+                {% ifequal form.auto_id|f1 '媒体部' %}
+                <div class="form-group">
+                    <label>{{ form.label }} </label>
+                    <span class="help-block">
+                        {{ form.help_text|linebreaksbr}}
+                    </span>
+                    {{form}}
+                </div>
+                {% endifequal %}
+                {% endfor %}
+
+                <h3>活动部</h3>
+                {% for form in formset %}
+                {% ifequal form.auto_id|f1 '活动部' %}
+                <div class="form-group">
+                    <label>{{ form.label }} </label>
+                    <span class="help-block">
+                        {{ form.help_text|linebreaksbr}}
+                    </span>
+                    {{form}}
+                </div>
+                {% endifequal %}
+                {% endfor %}
+
+                <h3>技术部</h3>
                 <h4>硬件</h4>
                 {% for form in formset %}
                 {% ifequal form.auto_id|f1 '硬件' %}
