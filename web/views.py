@@ -162,7 +162,7 @@ def tests(request):
             required=False,
             label=q.title,
             help_text=q.detail,
-            widget=widgets.TextInput(attrs={'class': 'form-control'})
+            widget=widgets.Textarea(attrs={'class': 'form-control','rows': 6, 'cols': 40})
         )
 
     MyAnswerForm = type('MyAnswerForm', (Form,), field_dict)
