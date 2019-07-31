@@ -30,6 +30,7 @@
                 {% if message %}
                 <div class="alert alert-warning">{{ message }}</div>
                 {% endif %}
+                <h4>硬件</h4>
                 {% for form in formset %}
                 {% ifequal form.auto_id|f1 '硬件' %}
                 <div class="form-group">
@@ -42,6 +43,7 @@
                 {% endifequal %}
                 {% endfor %}
 
+                <h4>ACM</h4>
                 {% for form in formset %}
                 {% ifequal form.auto_id|f1 'ACM' %}
                 <div class="form-group">
@@ -54,8 +56,9 @@
                 {% endifequal %}
                 {% endfor %}
 
+                <h4>web</h4>
                 {% for form in formset %}
-                {% ifequal form.auto_id|f1 '硬件' %}
+                {% ifequal form.auto_id|f1 'web' %}
                 <div class="form-group">
                     <label>{{ form.label }} </label>
                     <span class="help-block">
