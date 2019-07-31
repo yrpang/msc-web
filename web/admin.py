@@ -45,7 +45,7 @@ class MessageAdminForm(forms.ModelForm):
 
 class MessageAdmin(admin.ModelAdmin):
     form = MessageAdminForm
-    list_display = ('title','category')
+    list_display = ('title','category','author')
     list_filter = ('category',)
     search_fields = ('title','detail','author')
 
