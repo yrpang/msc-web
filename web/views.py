@@ -178,7 +178,7 @@ def tests(request):
                 ini['%s_%s' % (q.category.name, q.id)] = ""
 
         formset = MyAnswerForm(initial=ini)
-        return render(request, 'tests.html', {'formset': formset,'num':range(1,13)})
+        return render(request, 'tests.html', {'formset': formset,'dis':['id_媒体部_12','id_媒体部_14','id_媒体部_15','id_硬件_4']})
 
     else:
         ans = MyAnswerForm(request.POST)

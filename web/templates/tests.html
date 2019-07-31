@@ -30,7 +30,7 @@
                 {% if message %}
                 <div class="alert alert-warning">{{ message }}</div>
                 {% endif %}
-                
+
                 <h3>媒体部</h3>
                 {% for form in formset %}
                 {% ifequal form.auto_id|f1 '媒体部' %}
@@ -39,7 +39,9 @@
                     <span class="help-block">
                         {{ form.help_text|linebreaksbr}}
                     </span>
+                    {% if form.auto_id not in dis %}
                     {{form}}
+                    {% endif %}
                 </div>
                 {% endifequal %}
                 {% endfor %}
@@ -52,7 +54,9 @@
                     <span class="help-block">
                         {{ form.help_text|linebreaksbr}}
                     </span>
+                    {% if form.auto_id not in dis %}
                     {{form}}
+                    {% endif %}
                 </div>
                 {% endifequal %}
                 {% endfor %}
@@ -66,7 +70,9 @@
                     <span class="help-block">
                         {{ form.help_text|linebreaksbr}}
                     </span>
+                    {% if form.auto_id not in dis %}
                     {{form}}
+                    {% endif %}
                 </div>
                 {% endifequal %}
                 {% endfor %}
@@ -79,7 +85,9 @@
                     <span class="help-block">
                         {{ form.help_text|linebreaksbr}}
                     </span>
+                    {% if form.auto_id not in dis %}
                     {{form}}
+                    {% endif %}
                 </div>
                 {% endifequal %}
                 {% endfor %}
@@ -92,7 +100,9 @@
                     <span class="help-block">
                         {{ form.help_text|linebreaksbr}}
                     </span>
+                    {% if form.auto_id not in dis %}
                     {{form}}
+                    {% endif %}
                 </div>
                 {% endifequal %}
                 {% endfor %}
@@ -105,7 +115,10 @@
                     <span class="help-block">
                         {{ form.help_text|linebreaksbr}}
                     </span>
+                    {% if form.auto_id not in dis %}
                     {{form}}
+                    {% endif %}
+
                 </div>
                 {% endifequal %}
                 {% endfor %}
