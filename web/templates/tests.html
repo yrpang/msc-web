@@ -19,7 +19,7 @@
 <div class="container">
     <div class='row'>
         <div class="col-md-6 col-md-offset-3">
-            <h2 class="text-center">福利题</h2>
+            <h1 class="text-center">福利题</h1>
 
             <form class='form-login' action="/tests/" id="answer" method="post">
                 {{ formset.management_form }}
@@ -33,7 +33,7 @@
                 {% ifequal form.auto_id|f1 '媒体部' %}
                 <div class="form-group">
                     <label>{{ form.label }} </label>
-                    <span class="help-txt">
+                    <span class="help-block">
                         {{ form.help_text|linebreaksbr}}
                     </span>
                     {% if form.auto_id not in dis %}
@@ -48,7 +48,7 @@
                 {% ifequal form.auto_id|f1 '活动部' %}
                 <div class="form-group">
                     <label>{{ form.label }} </label>
-                    <span class="help-txt">
+                    <span class="help-block">
                         {{ form.help_text|linebreaksbr}}
                     </span>
                     {% if form.auto_id not in dis %}
@@ -64,7 +64,7 @@
                 {% ifequal form.auto_id|f1 '硬件' %}
                 <div class="form-group">
                     <label>{{ form.label }} </label>
-                    <span class="help-txt">
+                    <span class="help-block">
                         {{ form.help_text|linebreaksbr}}
                     </span>
                     {% if form.auto_id not in dis %}
@@ -79,7 +79,7 @@
                 {% ifequal form.auto_id|f1 'ACM' %}
                 <div class="form-group">
                     <label>{{ form.label }} </label>
-                    <span class="help-txt">
+                    <span class="help-block">
                         {{ form.help_text|linebreaksbr}}
                     </span>
                     {% if form.auto_id not in dis %}
@@ -94,7 +94,7 @@
                 {% ifequal form.auto_id|f1 '科研' %}
                 <div class="form-group">
                     <label>{{ form.label }} </label>
-                    <span class="help-txt">
+                    <span class="help-block">
                         {{ form.help_text|linebreaksbr}}
                     </span>
                     {% if form.auto_id not in dis %}
@@ -109,7 +109,7 @@
                 {% ifequal form.auto_id|f1 'web' %}
                 <div class="form-group">
                     <label>{{ form.label }} </label>
-                    <span class="help-txt">
+                    <span class="help-block">
                         {{ form.help_text|linebreaksbr}}
                     </span>
                     {% if form.auto_id not in dis %}
