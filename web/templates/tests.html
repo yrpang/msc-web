@@ -56,6 +56,19 @@
                 {% endifequal %}
                 {% endfor %}
 
+                <h4>科研</h4>
+                {% for form in formset %}
+                {% ifequal form.auto_id|f1 '科研' %}
+                <div class="form-group">
+                    <label>{{ form.label }} </label>
+                    <span class="help-block">
+                        {{ form.help_text|linebreaksbr}}
+                    </span>
+                    {{form}}
+                </div>
+                {% endifequal %}
+                {% endfor %}
+
                 <h4>web</h4>
                 {% for form in formset %}
                 {% ifequal form.auto_id|f1 'web' %}
