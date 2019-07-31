@@ -198,4 +198,4 @@ def tests(request):
                     models.Answers.objects.create(
                         user=user, question=q, answer=v)
         formset = MyAnswerForm(request.POST)
-        return render(request, 'tests.html', {'formset': formset})
+        return render(request, 'tests.html', {'formset': formset,'dis':['id_媒体部_12','id_媒体部_14','id_媒体部_15','id_硬件_4']})
