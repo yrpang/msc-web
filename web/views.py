@@ -113,7 +113,7 @@ def register(request):
                     password1), email=email, sex=sex, phone=phone, qq=qq, self_introduction=self_introduction, birth=birth)
 
                 code = make_confirm_string(new_user)
-                send_email(email, code)
+                # send_email(email, code)
                 return redirect('/login/')  # 自动跳转到登录页面
         else:
             error = register_form.errors
@@ -178,7 +178,7 @@ def tests(request):
                 ini['%s_%s' % (q.category.name, q.id)] = ""
 
         formset = MyAnswerForm(initial=ini)
-        return render(request, 'tests.html', {'formset': formset})
+        return render(request, 'tests.html', {'formset': formset,'num':range(1,13)})
 
     else:
         ans = MyAnswerForm(request.POST)
