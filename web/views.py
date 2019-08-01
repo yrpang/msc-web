@@ -85,7 +85,7 @@ def register(request):
         return redirect("/")
     if request.method == "POST":
         register_form = RegisterForm(request.POST)
-        message = "未知错误，请联系管理"
+        message = "填写错误，请检查"
         if register_form.is_valid():  # 获取数据
             name = register_form.cleaned_data['name']
             sex = register_form.cleaned_data['sex']
