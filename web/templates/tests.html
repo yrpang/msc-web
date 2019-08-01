@@ -124,9 +124,29 @@
                 {% ifequal form.auto_id|f1 'web' %}
                 <div class="form-group">
                     <label>{{ form.label }} </label>
+
+                    {% ifequal form.auto_id 'id_web_28' %}
+                    <span class="help-block">
+                    <a href="192.144.168.241/test.html">192.144.168.241/test.html</a>
+                    PS:并不是跨站攻击&文件包含，求萌佬们对服务器手下留情
+                    </span>
+
+                    {% else %}
+
+                    {% ifequal form.auto_id 'id_web_28' %}
+                    <a href="https://47.100.114.21">https://47.100.114.21</a>
+
+                    {%else%}
                     <span class="help-block">
                         {{ form.help_text|linebreaksbr}}
                     </span>
+
+                    {% endifequal%}
+                    {% endifequal%}
+
+
+
+                    
                     {% if form.auto_id not in dis %}
                     {{form}}
                     {% endif %}
