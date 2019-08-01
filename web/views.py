@@ -206,8 +206,8 @@ def web4(request):
     if request.method=='GET':
         return render(request, 'web4.html')
     elif request.method == 'POST':
-        ans = request.POST
-        if ans != "2019":
+        ans = request.POST.get('year', None)
+        if ans == '2019':
             print(ans)
             return render(request, 'web4.html', {'flag':'flag{just_P0st}'})
         else:
