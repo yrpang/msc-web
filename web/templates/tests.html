@@ -135,14 +135,22 @@
                     <span class="help-block">
                     <a href="https://47.100.114.21">https://47.100.114.21</a>
                     </span>
-                    
                     {%else%}
                     {% ifequal form.auto_id 'id_web_31'%}
                     <!-- flag{learn_t0_use_f12} -->
                     {% endifequal %}
+
+                    {% ifequal form.auto_id 'id_web_32' %}
+                    <span class="help-block">
+                    <a href="https://www.xdmsc.club/web4/">https://www.xdmsc.club/web4/</a>
+                    </span>
+
+                    {%else%}
+                    
                     <span class="help-block">
                         {{ form.help_text|linebreaksbr}}
                     </span>
+                    {% endifequal%}
                     {% endifequal%}
                     {% endifequal%}
 
