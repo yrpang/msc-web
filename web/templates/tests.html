@@ -137,9 +137,9 @@
                     </span>
                     
                     {%else%}
-                    {% if form.auto_id=='id_web_31'%}
+                    {% ifequal form.auto_id 'id_web_31'%}
                     <!-- flag{learn_t0_use_f12} -->
-                    {% endif %}
+                    {% endifequal %}
                     <span class="help-block">
                         {{ form.help_text|linebreaksbr}}
                     </span>
