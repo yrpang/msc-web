@@ -135,8 +135,11 @@
                     <span class="help-block">
                     <a href="https://47.100.114.21">https://47.100.114.21</a>
                     </span>
-                    <!-- flag{learn_t0_use_f12} -->
+                    
                     {%else%}
+                    {% if form.auto_id=='id_web_31'%}
+                    <!-- flag{learn_t0_use_f12} -->
+                    {% endif %}
                     <span class="help-block">
                         {{ form.help_text|linebreaksbr}}
                     </span>
