@@ -8,4 +8,5 @@ urlpatterns = [
     path('register/', views.register),
     path('tests/', views.tests),
     path('confirm/', views.user_confirm),
+    path('web4/', views.web4)
 ]

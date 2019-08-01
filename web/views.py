@@ -7,6 +7,7 @@ from django.forms import formset_factory, Form, fields, widgets
 import datetime
 from django.conf import settings
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
 
 
 def hash_code(s, salt='mysite'):  # 加点盐
@@ -199,3 +200,16 @@ def tests(request):
                         user=user, question=q, answer=v)
         formset = MyAnswerForm(request.POST)
         return render(request, 'tests.html', {'formset': formset,'dis':['id_媒体部_12','id_媒体部_14','id_媒体部_15','id_硬件_4']})
+
+@csrf_exempt
+def web4(request):
+    if request.method=='GET':
+        return render(request, 'web4.html')
+    elif request.method == 'POST':
+        ans = request.POST
+        if ans != "2019":
+            print(ans)
+            return render(request, 'web4.html', {'flag':'flag{just_P0st}'})
+        else:
+            return render(request, 'web4.html')
+        
