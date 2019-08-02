@@ -115,7 +115,7 @@ def register(request):
 
                 code = make_confirm_string(new_user)
                 send_email(email, code)
-                return redirect('/login/')  # 自动跳转到登录页面
+                return redirect('/login')  # 自动跳转到登录页面
         else:
             error = register_form.errors
             return render(request, 'login/register.html', locals())
@@ -155,7 +155,7 @@ def logout(request):
 
 def tests(request):
     if not request.session.get('is_login', None):
-        return redirect("/login/")
+        return redirect("/login")
     field_dict = {}
     question = models.Questions.objects.all().order_by('id')
     for q in question:
@@ -216,7 +216,7 @@ def web4(request):
 
 def apply(request):
     if not request.session.get('is_login', None):
-        return redirect("/login/")
+        return redirect("/login")
     if request.method == 'GET':
         try:
             data = models.Application.objects.get(user__id = request.session.get('user_id'))
@@ -231,7 +231,7 @@ def apply(request):
         except:
             app = ApplicationForm(request.POST)
         if app.is_valid():
-            if app.cleaned_data['mentor'].count() > 3:
+            if app.cleaned_data['mentor'].count() > 2:
                 message = "不要太贪心呀，最多选三个mentor哦！"
                 return render(request, 'applications.html', locals())
             a = app.save(commit=False)
@@ -288,7 +288,7 @@ def edit(request):
                     user.password = hash_code(password1)
                     user.save()
                     request.session.flush()
-                    return redirect('/login/')
+                    return redirect('/login')
             
             return redirect('/')
 

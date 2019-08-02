@@ -45,6 +45,14 @@ class RegisterForm(forms.Form):
 
 
 class ApplicationForm(forms.ModelForm):
+    def clean_stu_num(self):
+        value = self.cleaned_data.get('stu_num')
+        mobile_re = re.compile(
+            r'1[0-9]{10}$')
+        if not mobile_re.match(str(value)):
+            raise ValidationError('学号错误')
+        else:
+            return value
     class Meta:
         model = Application
         fields = ("stu_num","college","group", "mentor","something")
