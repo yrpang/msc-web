@@ -3233,6 +3233,11 @@ input[type="search"] {
     margin-bottom: 15px;
 }
 
+.form-hide {
+    margin-bottom: 15px;
+    display: none;
+}
+
 .radio,
 .checkbox {
     position: relative;

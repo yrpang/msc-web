@@ -10,9 +10,25 @@ class AnswersInline(admin.TabularInline):
     model = Answers
 
 
+class MentorFilter(admin.SimpleListFilter):
+    title = "Mentor"
+    parameter_name = "mentor"
+
+    def lookups(self, request, model_admin):
+        mentor = Mentor.objects.all()
+        mentor = set([m for m in mentor])
+        return [(m.name, m.name) for m in mentor]
+
+    def queryset(self, request, queryset):
+        if not self.value():
+            return queryset.all()
+        else:
+            return queryset.filter(application__mentor__name__contains=self.value())
+
+
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('name', 'status', 'sex', 'email', 'c_time', 'has_confirmed')
-    list_filter = ('sex', 'status')
+    list_display = ('name', 'status', 'sex', 'email','mentor_list', 'c_time', 'has_confirmed')
+    list_filter = ('sex', 'status','application',MentorFilter)
     search_fields = ('name',)
     list_per_page = 20
     ordering = ('-c_time',)
@@ -34,6 +50,20 @@ class UserAdmin(admin.ModelAdmin):
         }),
     )
 
+    def group_value(self,obj):
+        value = obj.application.group
+        return value
+    group_value.short_description = "意向部门"
+
+    def mentor_list(self,obj):
+        applications=[]
+        for app in obj.application.mentor.all():
+            applications.append(app.name)
+        return ','.join(applications)
+    mentor_list.short_description = "意向mentor"
+
+    
+    
 
 admin.site.register(User, UserAdmin)
 

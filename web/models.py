@@ -112,4 +112,4 @@ class Application(models.Model):
     mentor = models.ManyToManyField(Mentor)
 
     def __str__(self):
-        return self.user.name
+        return self.group
