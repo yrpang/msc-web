@@ -10,5 +10,6 @@ urlpatterns = [
     path('confirm/', views.user_confirm),
     path('application/', views.apply),
     path('web4/', views.web4),
+    path('edit/', views.edit)
     
 ]

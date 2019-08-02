@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from . import models
-from .forms import UserForm, RegisterForm, ApplicationForm
+from .forms import UserForm, RegisterForm, ApplicationForm, EditForm
 import hashlib
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
 from django.forms import formset_factory, Form, fields, widgets
@@ -238,5 +238,61 @@ def apply(request):
             a.user=models.User.objects.get(id=request.session.get('user_id'))
             a.save()
             app.save_m2m()
+        else:
+            message="学号填写错误"
+            error = app.errors
         return render(request, 'applications.html', locals())
-    
+
+
+def edit(request):
+    if not request.session.get('is_login', None):
+        return redirect("/")
+    if request.method=="GET":
+        data = models.User.objects.get(id = request.session.get('user_id'))
+
+        print(type(data.qq))
+        initial = {
+            "email": data.email,
+            "name" : data.name,
+            "sex": data.sex,
+            "birth": data.birth,
+            "qq": data.qq,
+            "phone": data.phone,
+            "self_introduction" : data.self_introduction
+        }
+        edit_form = EditForm(initial=initial)
+        return render(request, 'login/edit.html', locals())
+    elif request.method == "POST":
+        edit_form = EditForm(request.POST)
+        try:
+            user = models.User.objects.filter(id = request.session.get('user_id'))
+        except:
+            message = "用户不存在"
+            return render(request, 'login/edit.html', locals())
+        if edit_form.is_valid():  # 获取数据
+            sex = edit_form.cleaned_data['sex']
+            password1 = edit_form.cleaned_data['password1']
+            password2 = edit_form.cleaned_data['password2']
+            birth = edit_form.cleaned_data['birth']
+            qq = edit_form.cleaned_data['qq']
+            phone = edit_form.cleaned_data['phone']
+            self_introduction = edit_form.cleaned_data['self_introduction']
+
+            user.update(sex=sex, phone=phone, qq=qq, self_introduction=self_introduction,birth=birth)
+
+            if password1 != '':
+                if password1 != password2:  # 判断两次密码是否相同
+                    message = "两次输入的密码不同！"
+                    return render(request, 'login/edit.html', locals())
+                else:
+                    user.password = hash_code(password1)
+                    user.save()
+                    request.session.flush()
+                    return redirect('/login/')
+            
+            return redirect('/')
+
+        else:
+            error = edit_form.errors
+            return render(request, 'login/edit.html', locals())
+

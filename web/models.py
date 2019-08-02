@@ -109,7 +109,7 @@ class Application(models.Model):
         ('技术部', '技术部'),
     )
     group = models.CharField("部门",choices=GROUP, max_length=64, blank=True, null=True)
-    mentor = models.ManyToManyField(Mentor)
+    mentor = models.ManyToManyField(Mentor,blank=True)
     something = models.CharField("个人简介", max_length=640,default="请介绍一下自己的特长等等")
     stu_num = models.BigIntegerField("学号")
     CHOICE=[
