@@ -47,8 +47,11 @@ class RegisterForm(forms.Form):
 class ApplicationForm(forms.ModelForm):
     class Meta:
         model = Application
-        fields = ("group", "mentor")
+        fields = ("stu_num","college","group", "mentor","something")
         widgets = {
+            'stu_num': forms.TextInput(attrs={'class': 'form-control'}),
+            'college':forms.Select(attrs={'class': 'form-control'}),
             'group': forms.Select(attrs={'class': 'form-control'}),
-            'mentor': forms.CheckboxSelectMultiple(attrs={'class': 'checkbox-inline'}), # 关键是这一行
+            'mentor': forms.CheckboxSelectMultiple(attrs={'class': 'checkbox-inline'}),
+            'something': forms.Textarea(attrs={'class': 'form-control', 'rows': 6, 'cols': 40, 'placeholder': '请介绍一下自己的特长等等'})
         }
