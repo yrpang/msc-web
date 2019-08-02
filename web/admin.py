@@ -27,7 +27,7 @@ class MentorFilter(admin.SimpleListFilter):
 
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('name', 'status', 'sex', 'email','mentor_list', 'c_time', 'has_confirmed')
+    list_display = ('name', 'status', 'sex', 'email','mentor_list','application', 'c_time', 'has_confirmed')
     list_filter = ('sex', 'status','application',MentorFilter)
     search_fields = ('name',)
     list_per_page = 20

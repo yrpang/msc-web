@@ -112,4 +112,7 @@ class Application(models.Model):
     mentor = models.ManyToManyField(Mentor)
 
     def __str__(self):
-        return self.group
+        if self.group != None:
+            return self.group
+        else:
+            return "未选择"
