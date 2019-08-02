@@ -52,4 +52,4 @@ class MessageAdmin(admin.ModelAdmin):
 admin.site.register(Questions, MessageAdmin)
 
 
-admin.site.register([Category, ConfirmString])
+admin.site.register([Category, ConfirmString, Mentor])

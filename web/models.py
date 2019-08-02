@@ -2,6 +2,7 @@ from django.db import models
 import django.utils.timezone as timezone
 
 
+
 class User(models.Model):
     name = models.CharField("姓名", max_length=64, blank=False)
     GENDER = [
@@ -93,3 +94,22 @@ class ConfirmString(models.Model):
         ordering = ["-c_time"]
         verbose_name = "确认码"
         verbose_name_plural = "确认码"
+
+
+class Mentor(models.Model):
+    name = models.CharField("姓名", max_length=64)
+    def __str__(self):
+        return self.name
+
+class Application(models.Model):
+    user = models.OneToOneField('User', on_delete=models.CASCADE)
+    GROUP = (
+        ('活动部', "活动部"),
+        ('媒体部', "媒体部"),
+        ('技术部', '技术部'),
+    )
+    group = models.CharField(choices=GROUP, max_length=64, blank=True, null=True)
+    mentor = models.ManyToManyField(Mentor)
+
+    def __str__(self):
+        return self.user.name

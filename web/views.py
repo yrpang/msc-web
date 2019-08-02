@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from . import models
-from .forms import UserForm, RegisterForm
+from .forms import UserForm, RegisterForm, ApplicationForm
 import hashlib
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
 from django.forms import formset_factory, Form, fields, widgets
@@ -213,3 +213,27 @@ def web4(request):
         else:
             return render(request, 'web4.html')
         
+
+def apply(request):
+    if not request.session.get('is_login', None):
+        return redirect("/login/")
+    if request.method == 'GET':
+        try:
+            data = models.Application.objects.get(user__id = request.session.get('user_id'))
+            app = ApplicationForm(instance=data)
+        except:
+            app = ApplicationForm()
+        return render(request, 'applications.html', locals())
+    elif request.method == 'POST':
+        try:
+            data = models.Application.objects.get(user__id = request.session.get('user_id'))
+            app = ApplicationForm(instance=data, data=request.POST)
+        except:
+            app = ApplicationForm(request.POST)
+        if app.is_valid():
+            a = app.save(commit=False)
+            a.user=models.User.objects.get(id=request.session.get('user_id'))
+            a.save()
+            app.save_m2m()
+        return render(request, 'applications.html', locals())
+    

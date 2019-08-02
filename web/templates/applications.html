@@ -1,0 +1,38 @@
+{% extends 'login/base.html' %}
+{% load staticfiles %}
+{% block title %}报名表{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/application.css' %}">
+{% endblock %}
+
+{% block navigate %}
+<ul class="nav navbar-nav">
+    <li><a href="/">主页</a></li>
+    <li><a href="/tests">福利题</a></li>
+    <li class="active"><a href="/application">报名表</a></li>
+</ul>
+{% endblock navigate %}
+
+{% block content %}
+<div class="container">
+    <div class="col-md-4 col-md-offset-4">
+        <form action="/application/" method="post">
+            {% csrf_token %}
+            <h2 class="text-center">报名表</h2>
+            <div class="form-group">
+            <label>{{app.group.label}}</label>
+            {{app.group}}
+            </div>
+            <div class="form-group">
+            <label>{{app.mentor.label}}</label>
+            <br>
+            <span class="sel">{{app.mentor}}</span>
+            </div>
+            <button type="reset" class="btn btn-default pull-left">重置</button>
+            <button type="submit" class="btn btn-primary pull-right">提交</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

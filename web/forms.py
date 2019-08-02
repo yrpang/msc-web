@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import formset_factory, ModelForm, modelformset_factory, widgets
-from .models import Answers, Questions
+from .models import Answers, Questions, Application
 import re
 from django.core.exceptions import ValidationError
 
@@ -42,3 +42,13 @@ class RegisterForm(forms.Form):
 
     self_introduction = forms.CharField(
         label="自我介绍", max_length=640, widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 6, 'cols': 40, 'placeholder': '简单介绍一下自己吧'}))
+
+
+class ApplicationForm(forms.ModelForm):
+    class Meta:
+        model = Application
+        fields = ("group", "mentor")
+        widgets = {
+            'group': forms.Select(attrs={'class': 'form-control'}),
+            'mentor': forms.CheckboxSelectMultiple(attrs={'class': 'checkbox-inline'}), # 关键是这一行
+        }
