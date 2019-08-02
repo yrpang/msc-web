@@ -35,7 +35,7 @@ class UserAdmin(admin.ModelAdmin):
     list_per_page = 20
     ordering = ('-c_time',)
     list_editable = ('status',)
-    inlines = [AnswersInline, ApplyInline]
+    inlines = [ApplyInline, AnswersInline]
 
     readonly_fields = ('name', 'sex', 'email', 'birth',
                        'qq', 'phone', 'self_introduction')
