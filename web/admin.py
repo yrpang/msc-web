@@ -9,7 +9,7 @@ admin.site.index_title = 'XDMSC招新管理'
 class AnswersInline(admin.TabularInline):
     model = Answers
 
-class ApplyInline(admin.TabularInline):
+class ApplicationInline(admin.StackedInline):
     model = Application
 
 class MentorFilter(admin.SimpleListFilter):
@@ -35,7 +35,7 @@ class UserAdmin(admin.ModelAdmin):
     list_per_page = 20
     ordering = ('-c_time',)
     list_editable = ('status',)
-    inlines = [ApplyInline, AnswersInline]
+    inlines = [ApplicationInline, AnswersInline]
 
     readonly_fields = ('name', 'sex', 'email', 'birth',
                        'qq', 'phone', 'self_introduction')
