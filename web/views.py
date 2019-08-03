@@ -66,12 +66,12 @@ def send_email(email, code):
 
     subject = 'XDMSC注册确认'
 
-    text_content = '欢迎加入XDMSC的大家庭，请复制链接https://{}/confirm/?code={} 到浏览器进行确认，有效期3天'.format(
+    text_content = '欢迎加入XDMSC的大家庭，请复制链接https://{}/confirm?code={} 到浏览器进行确认，有效期3天'.format(
         'demo.pangyiren.com', code)
 
     html_content = '''
                     <p>欢迎加入XDMSC大家庭</p>
-                    <p>请点击链接<a href="https://{}/confirm/?code={}" target=blank>https://{}/confirm/?code={}</a>完成注册确认！</p>
+                    <p>请点击链接<a href="https://{}/confirm?code={}" target=blank>https://{}/confirm?code={}</a>完成注册确认！</p>
                     <p>此链接有效期为3天！</p>
                     '''.format('www.xdmsc.club', code, 'www.xdmsc.club', code)
 
@@ -284,6 +284,7 @@ def edit(request):
                     message = "两次输入的密码不同！"
                     return render(request, 'login/edit.html', locals())
                 else:
+                    user = user[0]
                     user.password = hash_code(password1)
                     user.save()
                     request.session.flush()

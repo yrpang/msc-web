@@ -110,7 +110,7 @@ class Application(models.Model):
     )
     group = models.CharField("部门",choices=GROUP, max_length=64, blank=True, null=True)
     mentor = models.ManyToManyField(Mentor,blank=True)
-    something = models.CharField("个人简介", max_length=640,default="请介绍一下自己的特长等等")
+    something = models.CharField("个人简介", max_length=640)
     stu_num = models.BigIntegerField("学号")
     CHOICE=[
         ('通信工程学院','通信工程学院'),
@@ -130,7 +130,7 @@ class Application(models.Model):
         ('网络与信息安全学院','网络与信息安全学院'),
         ('国际教育学院','国际教育学院')
     ]
-    college = models.CharField("学院",choices=CHOICE,max_length=64,default="通信工程学院")
+    college = models.CharField("学院",choices=CHOICE,max_length=64)
 
     def __str__(self):
         if self.group != None:
