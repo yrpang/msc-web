@@ -58,9 +58,9 @@ class ApplicationForm(forms.ModelForm):
         fields = ("stu_num","college","group", "mentor","something")
         widgets = {
             'stu_num': forms.TextInput(attrs={'class': 'form-control'}),
-            'college':forms.Select(attrs={'class': 'form-control'}),
-            'group': forms.Select(attrs={'class': 'form-control'}),
-            'mentor': forms.CheckboxSelectMultiple(attrs={'class': 'checkbox-inline'}),
+            'college':forms.Select(attrs={'class': 'selectpicker form-control'}),
+            'group': forms.Select(attrs={'class': 'selectpicker form-control', 'id':'group_select'}),
+            'mentor': forms.SelectMultiple(attrs={'class': 'selectpicker form-control', 'multiple':'', 'title':'请选择mentor', 'data-max-options':3, 'id':'mentor_select' , 'data-live-search':'true'}),
             'something': forms.Textarea(attrs={'class': 'form-control', 'rows': 6, 'cols': 40, 'placeholder': '请介绍一下自己的特长等等'})
         }
 

@@ -231,7 +231,7 @@ def apply(request):
         except:
             app = ApplicationForm(request.POST)
         if app.is_valid():
-            if app.cleaned_data['mentor'].count() > 2:
+            if app.cleaned_data['mentor'].count() > 3:
                 message = "不要太贪心呀，最多选三个mentor哦！"
                 return render(request, 'applications.html', locals())
             a = app.save(commit=False)
@@ -250,7 +250,6 @@ def edit(request):
     if request.method=="GET":
         data = models.User.objects.get(id = request.session.get('user_id'))
 
-        print(type(data.qq))
         initial = {
             "email": data.email,
             "name" : data.name,

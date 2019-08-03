@@ -3,7 +3,8 @@
 {% block title %}报名表{% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/application.css' %}">
+<link rel="stylesheet" href="{% static 'css/application.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.10/dist/css/bootstrap-select.min.css">
 {% endblock %}
 
 {% block navigate %}
@@ -19,7 +20,7 @@
     <div class="col-md-4 col-md-offset-4">
         <form action="/application" method="post">
             {% if message %}
-                  <div class="alert alert-warning">{{ message }}</div>
+            <div class="alert alert-warning">{{ message }}</div>
             {% endif %}
 
 
@@ -27,34 +28,34 @@
             <h2 class="text-center">报名表</h2>
 
             <div class="form-group">
-            <label>{{app.stu_num.label}}</label>
-            {{app.stu_num}}
+                <label>{{app.stu_num.label}}</label>
+                {{app.stu_num}}
             </div>
 
             <div class="form-group">
-            <label>{{app.college.label}}</label>
-            {{app.college}}
+                <label>{{app.college.label}}</label>
+                {{app.college}}
             </div>
 
 
             <div class="form-group">
-            <label>{{app.group.label}}</label>
-            {{app.group}}
+                <label>{{app.group.label}}</label>
+                {{app.group}}
             </div>
 
-            <div id="mentor" class="form-hide" style="display: none">
-            <label>{{app.mentor.label}}</label>
-            <br>
-            <span class="sel">{{app.mentor}}</span>
+            <div class="form-group" id="mentor">
+                <label>{{app.mentor.label}}</label>
+                {{app.mentor}}
             </div>
+  
+            
 
             <div class="form-group">
-            <label>{{app.something.label}}</label>
-            {{app.something}}
+                <label>{{app.something.label}}</label>
+                {{app.something}}
             </div>
 
 
-            <button type="reset" class="btn btn-default pull-left">重置</button>
             <button type="submit" class="btn btn-primary pull-right">提交</button>
         </form>
     </div>
@@ -63,19 +64,25 @@
 {% endblock %}
 
 {% block script %}
-    if($("#id_group").val() == '技术部'){
-        document.getElementById("mentor").style.display="block";
+    $('#group_select').on('loaded.bs.select', function (e) {
+      var _val = $(this).val();
+      if(_val == '技术部'){
+      document.getElementById("mentor").style.display="block";
     }
-
-    $("#id_group").change(function(){
-        var val=$("#id_group").val();
-        if(val != '技术部'){
-            document.getElementById("mentor").style.display="none";
-        }
-        else{
-            document.getElementById("mentor").style.display="block";
-        }
-    })
+    else{
+      document.getElementById("mentor").style.display="none";
+    }
+    });
 
 
+    $('#group_select').on('change', function () {
+    var _val = $(this).val();
+    if(_val == '技术部'){
+      document.getElementById("mentor").style.display="block";
+    }
+    else{
+      $("#mentor_select").selectpicker('deselectAll');
+      document.getElementById("mentor").style.display="none";
+    }
+    });
 {% endblock %}
