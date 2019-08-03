@@ -6,10 +6,17 @@ admin.site.site_header = 'XDMSC招新管理'
 admin.site.site_title = 'XDMSC招新管理'
 admin.site.index_title = 'XDMSC招新管理'
 
-class AnswersInline(admin.TabularInline):
+class AnswersInline(admin.StackedInline):
     model = Answers
+    fields = ['answer',]
+    
+    def get_queryset(self, request):
+        qs = super(AnswersInline, self).get_queryset(request)
+        return qs.order_by('question__category')
 
-class ApplicationInline(admin.StackedInline):
+    
+
+class ApplicationInline(admin.TabularInline):
     model = Application
 
 class MentorFilter(admin.SimpleListFilter):

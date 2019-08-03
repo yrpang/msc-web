@@ -284,9 +284,8 @@ def edit(request):
                     message = "两次输入的密码不同！"
                     return render(request, 'login/edit.html', locals())
                 else:
-                    user = user[0]
-                    user.password = hash_code(password1)
-                    user.save()
+                    user[0].password = hash_code(password1)
+                    user[0].save()
                     request.session.flush()
                     return redirect('/login')
             
