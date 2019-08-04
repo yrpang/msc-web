@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
     path('', views.index),
@@ -10,5 +11,6 @@ urlpatterns = [
     path('confirm', views.user_confirm),
     path('application', views.apply),
     path('web4', views.web4),
-    path('edit', views.edit)
+    path('edit', views.edit),
+    path("favicon.ico",RedirectView.as_view(url='static/favicon.ico')),
 ]
