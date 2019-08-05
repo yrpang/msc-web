@@ -13,4 +13,5 @@ urlpatterns = [
     path('web4', views.web4),
     path('edit', views.edit),
     path("favicon.ico",RedirectView.as_view(url='static/favicon.ico')),
+    path("somehelp", views.help),
 ]

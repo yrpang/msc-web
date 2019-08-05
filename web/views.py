@@ -295,3 +295,6 @@ def edit(request):
             error = edit_form.errors
             return render(request, 'login/edit.html', locals())
 
+
+def help(request):
+    return render(request, "help.html")

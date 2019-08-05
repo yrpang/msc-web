@@ -1,0 +1,40 @@
+{% extends 'login/base.html' %}
+{% load staticfiles %}
+{% block title %}一些答题帮助{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/tests.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div class='row'>
+        <div class="col-md-6 col-md-offset-3">
+
+            <h1 class="text-center">一些答题帮助</h1>
+            <h4>ACM</h4>
+            <blockquote>
+                <p>ACM-ICPC（其实你了解下他应该叫JB-ICPC）是在一定时间内用程序解决尽量多的问题的欢乐竞赛。涉及知识主要是各种算法思想和数据结构，数学等。问题的给出方式如下面的几道题，根据题目描述和样例写程序能够处理输入数据输出正确答案。</p>
+                <p>参加这个比赛需要准备的前置知识：</p>
+                <p>0.熟练掌握一门编程语言（C/C++/JAVA/Python）（虽然比赛支持JAVA/Python但是绝大部分程序都是C/C++）</p>
+                <p>1.书目：</p>
+                <p>《算法竞赛入门经典（第二版》</p>
+                <p>前5章都是语言基础的介绍，建议暑假内自学完毕，每天都看的话基本上一周就能学完，这就相当于数学里面的数字和加减乘除号，是解决问题时的书写方式。</p>
+                <p>《挑战程序设计竞赛（第二版）》</p>
+                <p>准备篇有一些比赛的介绍和了解的事情，后面的内容和算法竞赛入门经典后面的部分内容差不多，但是比较偏重讲解，而且代码的风格也更容易被看懂，下面的几道题都是初级篇的，算是正式比赛中的“hello world”水平的题</p>
+                <p>2.题目网站：</p>
+                <p>luogu：训练里面新手村里面的题可以练下语言基础，也比较有条理</p>
+                <p>vjudge：一个oj的整合，可以做算法竞赛入门中Uva上的题</p>
+                <p>poj：北大的在线评测平台</p>
+                <p>kuangbin专题</p>
+            </blockquote>
+
+
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
