@@ -12,3 +12,4 @@ migrations
 */migrations/*
 *.log
 settings.py
+backup
