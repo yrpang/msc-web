@@ -1,6 +1,8 @@
 from django.contrib import admin
 from .models import *
 from django import forms
+from mdeditor.widgets import MDEditorWidget
+from django.db import models
 
 admin.site.site_header = 'XDMSC招新管理'
 admin.site.site_title = 'XDMSC招新管理'
@@ -77,7 +79,7 @@ class UserAdmin(admin.ModelAdmin):
 admin.site.register(User, UserAdmin)
 
 class MessageAdminForm(forms.ModelForm):
-    detail = forms.CharField( widget=forms.Textarea(attrs={'rows': 5, 'cols': 100}))
+    detail = forms.CharField( widget=MDEditorWidget)
     class Meta:
         model = Questions
         fields = ('__all__')

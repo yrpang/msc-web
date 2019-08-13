@@ -2,7 +2,6 @@ from django.db import models
 import django.utils.timezone as timezone
 
 
-
 class User(models.Model):
     name = models.CharField("姓名", max_length=64, blank=False)
     GENDER = [
@@ -17,7 +16,7 @@ class User(models.Model):
     phone = models.CharField("手机号", max_length=64, blank=False)
     self_introduction = models.CharField("自我介绍", max_length=2000, blank=False)
     c_time = models.DateTimeField("注册时间", auto_now_add=True)
-    has_confirmed = models.BooleanField("是否已经邮件确认",default=False)
+    has_confirmed = models.BooleanField("是否已经邮件确认", default=False)
 
     STATESCHOICE = [
         (0, '等待面试'),
@@ -98,8 +97,10 @@ class ConfirmString(models.Model):
 
 class Mentor(models.Model):
     name = models.CharField("姓名", max_length=64)
+
     def __str__(self):
         return self.name
+
 
 class Application(models.Model):
     user = models.OneToOneField('User', on_delete=models.CASCADE)
@@ -108,29 +109,30 @@ class Application(models.Model):
         ('媒体部', "媒体部"),
         ('技术部', '技术部'),
     )
-    group = models.CharField("部门",choices=GROUP, max_length=64, blank=True, null=True)
-    mentor = models.ManyToManyField(Mentor,blank=True)
+    group = models.CharField(
+        "部门", choices=GROUP, max_length=64, blank=True, null=True)
+    mentor = models.ManyToManyField(Mentor, blank=True)
     something = models.CharField("个人简介", max_length=640)
     stu_num = models.BigIntegerField("学号")
-    CHOICE=[
-        ('通信工程学院','通信工程学院'),
-        ('电子工程学院','电子工程学院'),
-        ('计算机科学与技术学院','计算机科学与技术学院'),
-        ('机电工程学院','机电工程学院'),
-        ('物理与光电工程学院','物理与光电工程学院'),
-        ('经济与管理学院','经济与管理学院'),
-        ('数学与统计学院','数学与统计学院'),
-        ('人文学院','人文学院'),
-        ('外国语学院','外国语学院'),
-        ('人工智能学院','人工智能学院'),
-        ('微电子学院','微电子学院'),
-        ('生命科学技术学院','生命科学技术学院'),
-        ('空间科学与技术学院','空间科学与技术学院'),
-        ('先进材料与纳米科技学院','先进材料与纳米科技学院'),
-        ('网络与信息安全学院','网络与信息安全学院'),
-        ('国际教育学院','国际教育学院')
+    CHOICE = [
+        ('通信工程学院', '通信工程学院'),
+        ('电子工程学院', '电子工程学院'),
+        ('计算机科学与技术学院', '计算机科学与技术学院'),
+        ('机电工程学院', '机电工程学院'),
+        ('物理与光电工程学院', '物理与光电工程学院'),
+        ('经济与管理学院', '经济与管理学院'),
+        ('数学与统计学院', '数学与统计学院'),
+        ('人文学院', '人文学院'),
+        ('外国语学院', '外国语学院'),
+        ('人工智能学院', '人工智能学院'),
+        ('微电子学院', '微电子学院'),
+        ('生命科学技术学院', '生命科学技术学院'),
+        ('空间科学与技术学院', '空间科学与技术学院'),
+        ('先进材料与纳米科技学院', '先进材料与纳米科技学院'),
+        ('网络与信息安全学院', '网络与信息安全学院'),
+        ('国际教育学院', '国际教育学院')
     ]
-    college = models.CharField("学院",choices=CHOICE,max_length=64)
+    college = models.CharField("学院", choices=CHOICE, max_length=64)
 
     def __str__(self):
         if self.group != None:

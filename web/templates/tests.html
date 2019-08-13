@@ -35,7 +35,7 @@
                 <div class="form-group">
                     <label>{{ form.label }} </label>
                     <span class="help-block">
-                        {{ form.help_text|linebreaksbr}}
+                        {{ form.help_text|markdown|safe}}
                     </span>
                     {% if form.auto_id not in dis %}
                     {{form}}
@@ -50,7 +50,7 @@
                 <div class="form-group">
                     <label>{{ form.label }} </label>
                     <span class="help-block">
-                        {{ form.help_text|linebreaksbr}}
+                        {{ form.help_text|markdown|safe}}
                     </span>
                     {% if form.auto_id not in dis %}
                     {{form}}
@@ -66,7 +66,7 @@
                 <div class="form-group">
                     <label>{{ form.label }} </label>
                     <span class="help-block">
-                        {{ form.help_text|linebreaksbr}}
+                        {{ form.help_text|markdown|safe}}
                     </span>
                     {% if form.auto_id not in dis %}
                     {{form}}
@@ -81,7 +81,7 @@
                 <div class="form-group">
                     <label>{{ form.label }} </label>
                     <span class="help-block">
-                        {{ form.help_text|linebreaksbr}}
+                        {{ form.help_text|markdown|safe}}
                     </span>
                     {% if form.auto_id not in dis %}
                     {{form}}
@@ -89,14 +89,14 @@
                 </div>
                 {% endifequal %}
                 {% endfor %}
-                
+
                 <h4>Game</h4>
                 {% for form in formset %}
                 {% ifequal form.auto_id|f1 'Game' %}
                 <div class="form-group">
                     <label>{{ form.label }} </label>
                     <span class="help-block">
-                        {{ form.help_text|linebreaksbr}}
+                        {{ form.help_text|markdown|safe}}
                     </span>
                     {% if form.auto_id not in dis %}
                     {{form}}
@@ -113,7 +113,7 @@
                 <div class="form-group">
                     <label>{{ form.label }} </label>
                     <span class="help-block">
-                        {{ form.help_text|linebreaksbr}}
+                        {{ form.help_text|markdown|safe}}
                     </span>
                     {% if form.auto_id not in dis %}
                     {{form}}
@@ -128,7 +128,7 @@
                 <div class="form-group">
                     <label>{{ form.label }} </label>
                     <span class="help-block">
-                        {{ form.help_text|linebreaksbr}}
+                        {{ form.help_text|markdown|safe}}
                     </span>
                     {% if form.auto_id not in dis %}
                     {{form}}
@@ -142,36 +142,7 @@
                 {% ifequal form.auto_id|f1 'web' %}
                 <div class="form-group">
                     <label>{{ form.label }} </label>
-
-                    {% ifequal form.auto_id 'id_web_1' %}
-                    <span class="help-block">
-                    <a href="http://192.144.168.241/test.html">192.144.168.241/test.html</a>
-                    <br> PS:并不是跨站攻击&文件包含，求萌佬们对服务器手下留情
-                    </span>
-                    {% else %}
-                    {% ifequal form.auto_id 'id_web_33' %}
-                    <span class="help-block">
-                    <a href="https://47.100.114.21">https://47.100.114.21</a>
-                    </span>
-                    {%else%}
-                    {% ifequal form.auto_id 'id_web_31'%}
-                    <!-- flag{learn_t0_use_f12} -->
-                    {% endifequal %}
-
-                    {% ifequal form.auto_id 'id_web_32' %}
-                    <span class="help-block">
-                    <a href="https://www.xdmsc.club/web4">https://www.xdmsc.club/web4</a>
-                    </span>
-
-                    {%else%}
-                    
-                    <span class="help-block">
-                        {{ form.help_text|linebreaksbr}}
-                    </span>
-                    {% endifequal%}
-                    {% endifequal%}
-                    {% endifequal%}
-
+                    {{ form.help_text|markdown|safe}}
                     {% if form.auto_id not in dis %}
                     {{form}}
                     {% endif %}
