@@ -23,5 +23,5 @@ def error_msg(error_list):
 
 @register.filter(name='markdown')
 def mark(value):
-    return markdown(value, extensions=['markdown.extensions.extra', 'markdown.extensions.codehilite'])
+    return markdown(value, extensions=['markdown.extensions.extra', 'markdown.extensions.codehilite','markdown.extensions.toc'])
     
