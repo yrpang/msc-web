@@ -8,18 +8,19 @@ admin.site.site_header = 'XDMSC招新管理'
 admin.site.site_title = 'XDMSC招新管理'
 admin.site.index_title = 'XDMSC招新管理'
 
+
 class AnswersInline(admin.StackedInline):
     model = Answers
-    fields = ['answer',]
-    
+    fields = ['answer', ]
+
     def get_queryset(self, request):
         qs = super(AnswersInline, self).get_queryset(request)
         return qs.order_by('question__category')
 
-    
 
 class ApplicationInline(admin.TabularInline):
     model = Application
+
 
 class MentorFilter(admin.SimpleListFilter):
     title = "Mentor"
@@ -54,8 +55,9 @@ class GroupFilter(admin.SimpleListFilter):
 
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('name', 'status', 'sex', 'email','mentor_list','application', 'c_time', 'has_confirmed')
-    list_filter = ('sex', 'status',GroupFilter, MentorFilter)
+    list_display = ('name', 'status', 'sex', 'email',
+                    'mentor_list', 'application', 'c_time', 'has_confirmed')
+    list_filter = ('sex', 'status', GroupFilter, MentorFilter)
     search_fields = ('name',)
     list_per_page = 20
     ordering = ('-c_time',)
@@ -72,39 +74,41 @@ class UserAdmin(admin.ModelAdmin):
         }),
         ('面试状态', {
             "fields": (
-                'status','something'
+                'status', 'something'
             ),
         }),
     )
 
-    def group_value(self,obj):
+    def group_value(self, obj):
         value = obj.application.group
         return value
     group_value.short_description = "意向部门"
 
-    def mentor_list(self,obj):
-        applications=[]
+    def mentor_list(self, obj):
+        applications = []
         for app in obj.application.mentor.all():
             applications.append(app.name)
         return ','.join(applications)
     mentor_list.short_description = "意向mentor"
 
-    
-    
 
 admin.site.register(User, UserAdmin)
 
+
 class MessageAdminForm(forms.ModelForm):
-    detail = forms.CharField( widget=MDEditorWidget)
+    detail = forms.CharField(widget=MDEditorWidget)
+
     class Meta:
         model = Questions
         fields = ('__all__')
 
+
 class MessageAdmin(admin.ModelAdmin):
     form = MessageAdminForm
-    list_display = ('title','category','author')
+    list_display = ('title', 'category', 'author')
     list_filter = ('category',)
-    search_fields = ('title','detail','author')
+    search_fields = ('title', 'detail', 'author')
+
 
 admin.site.register(Questions, MessageAdmin)
 

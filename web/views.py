@@ -163,7 +163,8 @@ def tests(request):
             required=False,
             label=q.title,
             help_text=q.detail,
-            widget=widgets.Textarea(attrs={'class': 'form-control','rows': 6, 'cols': 40})
+            widget=widgets.Textarea(
+                attrs={'class': 'form-control', 'rows': 6, 'cols': 40})
         )
 
     MyAnswerForm = type('MyAnswerForm', (Form,), field_dict)
@@ -179,7 +180,7 @@ def tests(request):
                 ini['%s_%s' % (q.category.name, q.id)] = ""
 
         formset = MyAnswerForm(initial=ini)
-        return render(request, 'tests.html', {'formset': formset,'dis':['id_媒体部_12','id_媒体部_14','id_媒体部_15','id_硬件_4']})
+        return render(request, 'tests.html', {'formset': formset, 'dis': ['id_媒体部_12', 'id_媒体部_14', 'id_媒体部_15', 'id_硬件_4']})
 
     elif request.method == 'POST':
         ans = MyAnswerForm(request.POST)
@@ -190,7 +191,7 @@ def tests(request):
 
             for key, v in ans.items():
                 k, qid = key.rsplit('_', 1)
-                if v == "": 
+                if v == "":
                     continue
                 try:
                     a = models.Answers.objects.get(question__id=qid, user=user)
@@ -201,34 +202,37 @@ def tests(request):
                     models.Answers.objects.create(
                         user=user, question=q, answer=v)
         formset = MyAnswerForm(request.POST)
-        return render(request, 'tests.html', {'formset': formset,'dis':['id_媒体部_12','id_媒体部_14','id_媒体部_15','id_硬件_4']})
+        return render(request, 'tests.html', {'formset': formset, 'dis': ['id_媒体部_12', 'id_媒体部_14', 'id_媒体部_15', 'id_硬件_4']})
+
 
 @csrf_exempt
 def web4(request):
-    if request.method=='GET':
+    if request.method == 'GET':
         return render(request, 'web4.html')
     elif request.method == 'POST':
         ans = request.POST.get('year', None)
         if ans == '2019':
             print(ans)
-            return render(request, 'web4.html', {'flag':'flag{just_P0st}'})
+            return render(request, 'web4.html', {'flag': 'flag{just_P0st}'})
         else:
             return render(request, 'web4.html')
-        
+
 
 def apply(request):
     if not request.session.get('is_login', None):
         return redirect("/login")
     if request.method == 'GET':
         try:
-            data = models.Application.objects.get(user__id = request.session.get('user_id'))
+            data = models.Application.objects.get(
+                user__id=request.session.get('user_id'))
             app = ApplicationForm(instance=data)
         except:
             app = ApplicationForm()
         return render(request, 'applications.html', locals())
     elif request.method == 'POST':
         try:
-            data = models.Application.objects.get(user__id = request.session.get('user_id'))
+            data = models.Application.objects.get(
+                user__id=request.session.get('user_id'))
             app = ApplicationForm(instance=data, data=request.POST)
         except:
             app = ApplicationForm(request.POST)
@@ -237,11 +241,11 @@ def apply(request):
                 message = "不要太贪心呀，最多选三个mentor哦！"
                 return render(request, 'applications.html', locals())
             a = app.save(commit=False)
-            a.user=models.User.objects.get(id=request.session.get('user_id'))
+            a.user = models.User.objects.get(id=request.session.get('user_id'))
             a.save()
             app.save_m2m()
         else:
-            message="学号填写错误"
+            message = "学号填写错误"
             error = app.errors
         return render(request, 'applications.html', locals())
 
@@ -249,24 +253,25 @@ def apply(request):
 def edit(request):
     if not request.session.get('is_login', None):
         return redirect("/")
-    if request.method=="GET":
-        data = models.User.objects.get(id = request.session.get('user_id'))
+    if request.method == "GET":
+        data = models.User.objects.get(id=request.session.get('user_id'))
 
         initial = {
             "email": data.email,
-            "name" : data.name,
+            "name": data.name,
             "sex": data.sex,
             "birth": data.birth,
             "qq": data.qq,
             "phone": data.phone,
-            "self_introduction" : data.self_introduction
+            "self_introduction": data.self_introduction
         }
         edit_form = EditForm(initial=initial)
         return render(request, 'login/edit.html', locals())
     elif request.method == "POST":
         edit_form = EditForm(request.POST)
         try:
-            user = models.User.objects.filter(id = request.session.get('user_id'))
+            user = models.User.objects.filter(
+                id=request.session.get('user_id'))
         except:
             message = "用户不存在"
             return render(request, 'login/edit.html', locals())
@@ -279,7 +284,8 @@ def edit(request):
             phone = edit_form.cleaned_data['phone']
             self_introduction = edit_form.cleaned_data['self_introduction']
 
-            user.update(sex=sex, phone=phone, qq=qq, self_introduction=self_introduction,birth=birth)
+            user.update(sex=sex, phone=phone, qq=qq,
+                        self_introduction=self_introduction, birth=birth)
 
             if password1 != '':
                 if password1 != password2:  # 判断两次密码是否相同
@@ -290,7 +296,7 @@ def edit(request):
                     user[0].save()
                     request.session.flush()
                     return redirect('/login')
-            
+
             return redirect('/')
 
         else:
