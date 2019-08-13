@@ -181,7 +181,7 @@ def tests(request):
         formset = MyAnswerForm(initial=ini)
         return render(request, 'tests.html', {'formset': formset,'dis':['id_媒体部_12','id_媒体部_14','id_媒体部_15','id_硬件_4']})
 
-    else:
+    elif request.method == 'POST':
         ans = MyAnswerForm(request.POST)
         user = models.User.objects.get(id=request.session.get('user_id'))
 
@@ -190,6 +190,8 @@ def tests(request):
 
             for key, v in ans.items():
                 k, qid = key.rsplit('_', 1)
+                if v == "": 
+                    continue
                 try:
                     a = models.Answers.objects.get(question__id=qid, user=user)
                     a.answer = v
