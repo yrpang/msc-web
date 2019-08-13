@@ -37,9 +37,25 @@ class MentorFilter(admin.SimpleListFilter):
             return queryset.filter(application__mentor__name__contains=self.value())
 
 
+class GroupFilter(admin.SimpleListFilter):
+    title = "部门"
+    parameter_name = "group"
+
+    def lookups(self, request, model_admin):
+        group = Application.objects.values("group").all()
+        group = set([g for g in group])
+        return [(g.name, g.name) for g in group]
+
+    def queryset(self, request, queryset):
+        if not self.value():
+            return queryset.all()
+        else:
+            return queryset.filter(application__group__contains=self.value())
+
+
 class UserAdmin(admin.ModelAdmin):
     list_display = ('name', 'status', 'sex', 'email','mentor_list','application', 'c_time', 'has_confirmed')
-    list_filter = ('sex', 'status','application',MentorFilter)
+    list_filter = ('sex', 'status','application', MentorFilter)
     search_fields = ('name',)
     list_per_page = 20
     ordering = ('-c_time',)
