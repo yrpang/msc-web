@@ -28,7 +28,6 @@
                 {% if message %}
                 <div class="alert alert-warning">{{ message }}</div>
                 {% endif %}
-
                 <h3>媒体部</h3>
                 {% for form in formset %}
                 {% ifequal form.auto_id|f1 '媒体部' %}
@@ -143,6 +142,11 @@
                 <div class="form-group">
                     <label>{{ form.label }} </label>
                     {{ form.help_text|markdown|safe}}
+
+                    {% ifequal form.auto_id 'id_web_31'%}
+                    <!-- flag{learn_t0_use_f12} -->
+                    {% endifequal %}
+
                     {% if form.auto_id not in dis %}
                     {{form}}
                     {% endif %}
