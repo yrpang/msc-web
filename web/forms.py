@@ -32,7 +32,7 @@ class RegisterForm(forms.Form):
     qq = forms.CharField(label='QQ', widget=forms.TextInput(
         attrs={'class': 'form-control'}))
 
-    def phone_valid(value):
+    def phone_valid(self, value):
         mobile_re = re.compile(
             r'1[0-9]{10}$')
         if not mobile_re.match(value):
@@ -86,7 +86,7 @@ class EditForm(forms.Form):
     qq = forms.CharField(label='QQ', widget=forms.TextInput(
         attrs={'class': 'form-control'}))
 
-    def phone_valid(value):
+    def phone_valid(self, value):
         mobile_re = re.compile(
             r'1[0-9]{10}$')
         if not mobile_re.match(value):
