@@ -58,7 +58,7 @@ class GroupFilter(admin.SimpleListFilter):
 class UserAdmin(admin.ModelAdmin):
     list_display = ('name', 'status', 'sex', 'email',
                     'mentor_list', 'application', 'c_time', 'has_confirmed', 'if_dalao')
-    list_filter = ('sex', 'status', GroupFilter, MentorFilter, 'if_dalao')
+    list_filter = ('sex', 'status', GroupFilter, MentorFilter)
     search_fields = ('name',)
     list_per_page = 20
     ordering = ('-c_time',)
