@@ -17,6 +17,7 @@ class User(models.Model):
     self_introduction = models.CharField("自我介绍", max_length=2000, blank=False)
     c_time = models.DateTimeField("注册时间", auto_now_add=True)
     has_confirmed = models.BooleanField("是否已经邮件确认", default=False)
+    if_dalao = models.BooleanField("是否免试", default=False)
 
     STATESCHOICE = [
         (0, '等待面试'),
@@ -94,6 +95,19 @@ class ConfirmString(models.Model):
         verbose_name = "确认码"
         verbose_name_plural = "确认码"
 
+
+class DalaoString(models.Model):
+    code = models.CharField(max_length=256)
+    user = models.OneToOneField('User', on_delete=models.CASCADE)
+    c_time = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.user.name + ":   " + self.code
+
+    class Meta:
+        ordering = ["-c_time"]
+        verbose_name = "免试码"
+        verbose_name_plural = "免试码"
 
 class Mentor(models.Model):
     name = models.CharField("姓名", max_length=64)

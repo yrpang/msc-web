@@ -8,6 +8,7 @@ import datetime
 from django.conf import settings
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
+from django.core.mail import EmailMultiAlternatives
 
 
 def hash_code(s, salt='mysite'):  # 加点盐
@@ -62,12 +63,10 @@ def make_confirm_string(user):
 
 def send_email(email, code):
 
-    from django.core.mail import EmailMultiAlternatives
-
     subject = 'XDMSC注册确认'
 
     text_content = '欢迎加入XDMSC的大家庭，请复制链接https://{}/confirm?code={} 到浏览器进行确认，有效期3天'.format(
-        'demo.pangyiren.com', code)
+        'www.xdmsc.club', code)
 
     html_content = '''
                     <p>欢迎加入XDMSC大家庭</p>
@@ -306,3 +305,57 @@ def edit(request):
 
 def help(request):
     return render(request, "help.html")
+
+
+def send_magic_code(email, code):
+
+    subject = 'XDMSC神秘代码'
+
+    text_content = '恭喜获得一面免试资格，请复制链接https://{}/dalao?magiccode={} 激活你的神秘代码，有效期3天'.format(
+        'www.xdmsc.club', code)
+
+    html_content = '''
+                    <p>恭喜获得神秘代码</p>
+                    <p>恭喜获得一面免试资格,请点击链接<a href="https://{}/dalao?magiccode={}" target=blank>https://{}/dalao?magiccode={}</a>完成确认！</p>
+                    <p>此链接有效期为3天！</p>
+                    '''.format('www.xdmsc.club', code, 'www.xdmsc.club', code)
+    msg = EmailMultiAlternatives(
+        subject, text_content, settings.EMAIL_HOST_USER, [email])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+
+def make_dalao_string(user):
+    now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    code = hash_code(user.name, now)
+    try:
+        t = models.DalaoString.objects.get(user = user)
+        t.delete()
+        models.DalaoString.objects.create(code=code, user=user)
+    except models.DalaoString.DoesNotExist:
+        t = models.DalaoString.objects.create(code=code, user=user)
+    send_magic_code(user.email,code)
+
+
+def Dalao(request):
+    code = request.GET.get('magiccode', None)
+    message = ''
+    try:
+        magic_code = models.DalaoString.objects.get(code=code)
+    except:
+        message = '你输入的神秘代码无效哦，请联系mentor检查'
+        return render(request, 'dalao.html', locals())
+
+    c_time = magic_code.c_time
+    now = timezone.now()
+    if now > c_time + datetime.timedelta(3):
+        magic_code.delete()
+        message = '您的神秘代码已过期，请联系mentor重新索要'
+        return render(request, 'dalao.html', locals())
+    else:
+        magic_code.user.if_dalao = True
+        magic_code.user.status = 1
+        magic_code.user.save()
+        magic_code.delete()
+        message = '神秘代码验证通过，恭喜你获得免一面资格，请准时来参加二面哦！'
+        
+        return render(request, 'dalao.html', locals())

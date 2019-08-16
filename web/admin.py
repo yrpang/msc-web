@@ -3,6 +3,7 @@ from .models import *
 from django import forms
 from mdeditor.widgets import MDEditorWidget
 from django.db import models
+from .views import make_dalao_string
 
 admin.site.site_header = 'XDMSC招新管理'
 admin.site.site_title = 'XDMSC招新管理'
@@ -63,6 +64,7 @@ class UserAdmin(admin.ModelAdmin):
     ordering = ('-c_time',)
     list_editable = ('status',)
     inlines = [ApplicationInline, AnswersInline]
+    actions = ['set_as_dalao']
 
     readonly_fields = ('name', 'sex', 'email', 'birth',
                        'qq', 'phone', 'self_introduction')
@@ -91,6 +93,12 @@ class UserAdmin(admin.ModelAdmin):
         return ','.join(applications)
     mentor_list.short_description = "意向mentor"
 
+    def set_as_dalao(self, request, queryset):
+        for i in queryset:
+            make_dalao_string(i)
+    # 指定后台界面动作的关键词
+    set_as_dalao.short_description = "生成免试码"
+
 
 admin.site.register(User, UserAdmin)
 
@@ -113,4 +121,4 @@ class MessageAdmin(admin.ModelAdmin):
 admin.site.register(Questions, MessageAdmin)
 
 
-admin.site.register([Category, ConfirmString, Mentor])
+admin.site.register([Category, ConfirmString, Mentor, DalaoString])
