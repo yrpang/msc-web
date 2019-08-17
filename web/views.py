@@ -366,5 +366,5 @@ def Dalao(request):
         magic_code.user.save()
         magic_code.delete()
         message = '神秘代码验证通过，恭喜你获得免一面资格，请准时来参加二面哦！'
-        send_qq_message("恭喜%s同学获得免一面资格"%name)
+        send_qq_message("恭喜%s获得一面免试资格"%name)
         return render(request, 'dalao.html', locals())
