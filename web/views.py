@@ -309,35 +309,37 @@ def help(request):
     return render(request, "help.html")
 
 
-def send_magic_code(email, code):
+def send_magic_code(email, code, mentorname: str):
 
     subject = 'XDMSC神秘代码'
 
-    text_content = '恭喜获得一面免试资格，请复制链接https://{}/dalao?magiccode={} 激活你的神秘代码，有效期3天'.format(
-        'www.xdmsc.club', code)
+    text_content = '恭喜获得mentor{}提供的一面免试资格，请复制链接https://{}/dalao?magiccode={} 激活你的神秘代码，有效期3天'.format(
+        mentorname, 'www.xdmsc.club', code)
 
     html_content = '''
                     <p>恭喜获得神秘代码</p>
-                    <p>恭喜获得一面免试资格,请点击链接<a href="https://{}/dalao?magiccode={}" target=blank>https://{}/dalao?magiccode={}</a>完成确认！</p>
+                    <p>恭喜你获得mentor{}提供的一面免试资格,请点击链接<a href="https://{}/dalao?magiccode={}" target=blank>https://{}/dalao?magiccode={}</a>完成确认！</p>
                     <p>此链接有效期为3天！</p>
-                    '''.format('www.xdmsc.club', code, 'www.xdmsc.club', code)
+                    '''.format(mentorname, 'www.xdmsc.club', code, 'www.xdmsc.club', code)
     msg = EmailMultiAlternatives(
         subject, text_content, settings.EMAIL_HOST_USER, [email])
     msg.attach_alternative(html_content, "text/html")
     msg.send()
 
-def make_dalao_string(user):
+
+def make_dalao_string(user, mentorname: str):
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     code = hash_code(user.name, now)
     try:
-        t = models.DalaoString.objects.get(user = user)
+        t = models.DalaoString.objects.get(user=user)
         t.delete()
         models.DalaoString.objects.create(code=code, user=user)
     except models.DalaoString.DoesNotExist:
         t = models.DalaoString.objects.create(code=code, user=user)
-    send_magic_code(user.email,code)
+    send_magic_code(user.email, code, mentorname)
 
-def send_qq_message(message:str):
+
+def send_qq_message(message: str):
     url = 'http://127.0.0.1:5700/send_group_msg'
     headers = {'Content-Type': 'application/json'}
     data = {"group_id": 839637019, "message": message}
@@ -366,5 +368,5 @@ def Dalao(request):
         magic_code.user.save()
         magic_code.delete()
         message = '神秘代码验证通过，恭喜你获得免一面资格，请准时来参加二面哦！'
-        send_qq_message("恭喜%s获得一面免试资格"%name)
+        send_qq_message("恭喜%s获得一面免试资格" % name)
         return render(request, 'dalao.html', locals())

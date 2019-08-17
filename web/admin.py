@@ -94,8 +94,9 @@ class UserAdmin(admin.ModelAdmin):
     mentor_list.short_description = "意向mentor"
 
     def set_as_dalao(self, request, queryset):
+        name = request.user.last_name + request.user.first_name
         for i in queryset:
-            make_dalao_string(i)
+            make_dalao_string(i, name)
     # 指定后台界面动作的关键词
     set_as_dalao.short_description = "生成免试码"
 
