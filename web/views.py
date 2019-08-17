@@ -338,9 +338,9 @@ def make_dalao_string(user):
     send_magic_code(user.email,code)
 
 def send_qq_message(message:str):
-    url = 'http://127.0.0.1:5700/send_private_msg'
+    url = 'http://127.0.0.1:5700/send_group_msg'
     headers = {'Content-Type': 'application/json'}
-    data = {"user_id": 895808228, "message": message}
+    data = {"group_id": 839637019, "message": message}
     requests.post(url=url, data=json.dumps(data), headers=headers)
 
 
