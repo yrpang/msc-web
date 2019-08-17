@@ -18,5 +18,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('msc-2019-secret-panel/', admin.site.urls),
-    path('', include('web.urls'))
+    path('', include('web.urls')),
+    path('msc-speed-lalallala/', include('silk.urls', namespace='silk'))
 ]
+
