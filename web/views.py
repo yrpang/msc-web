@@ -9,6 +9,8 @@ from django.conf import settings
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import EmailMultiAlternatives
+import requests
+import json
 
 
 def hash_code(s, salt='mysite'):  # 加点盐
@@ -335,6 +337,12 @@ def make_dalao_string(user):
         t = models.DalaoString.objects.create(code=code, user=user)
     send_magic_code(user.email,code)
 
+def send_qq_message(message:str):
+    url = 'http://127.0.0.1:5700/send_private_msg'
+    headers = {'Content-Type': 'application/json'}
+    data = {"user_id": 895808228, "message": message}
+    requests.post(url=url, data=json.dumps(data), headers=headers)
+
 
 def Dalao(request):
     code = request.GET.get('magiccode', None)
@@ -354,8 +362,9 @@ def Dalao(request):
     else:
         magic_code.user.if_dalao = True
         magic_code.user.status = 1
+        name = magic_code.user.name
         magic_code.user.save()
         magic_code.delete()
         message = '神秘代码验证通过，恭喜你获得免一面资格，请准时来参加二面哦！'
-        
+        send_qq_message("恭喜%s同学获得免一面资格"%name)
         return render(request, 'dalao.html', locals())
