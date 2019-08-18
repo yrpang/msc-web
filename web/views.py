@@ -313,7 +313,7 @@ def send_magic_code(email, code, mentorname: str):
 
     subject = 'XDMSC神秘代码'
 
-    text_content = '恭喜获得mentor{}提供的一面免试资格，请复制链接https://{}/dalao?magiccode={} 激活你的神秘代码，有效期3天'.format(
+    text_content = '恭喜获得{}提供的一面免试资格，请复制链接https://{}/dalao?magiccode={} 激活你的神秘代码，有效期3天'.format(
         mentorname, 'www.xdmsc.club', code)
 
     html_content = '''
