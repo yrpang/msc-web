@@ -1,6 +1,6 @@
 *.pyc
 *.pyo
-venv
+.venv
 .vscode
 __pycache__
 simpleui

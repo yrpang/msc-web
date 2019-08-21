@@ -318,7 +318,7 @@ def send_magic_code(email, code, mentorname: str):
 
     html_content = '''
                     <p>恭喜获得神秘代码</p>
-                    <p>恭喜你获得{}提供的一面免试资格,请点击链接<a href="https://{}/dalao?magiccode={}" target=blank>https://{}/dalao?magiccode={}</a>完成确认！</p>
+                    <p>恭喜你获得mentor{}提供的一面免试资格,请点击链接<a href="https://{}/dalao?magiccode={}" target=blank>https://{}/dalao?magiccode={}</a>完成确认！</p>
                     <p>此链接有效期为3天！</p>
                     '''.format(mentorname, 'www.xdmsc.club', code, 'www.xdmsc.club', code)
     msg = EmailMultiAlternatives(
