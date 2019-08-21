@@ -245,6 +245,7 @@ def apply(request):
             a.user = models.User.objects.get(id=request.session.get('user_id'))
             a.save()
             app.save_m2m()
+            message = "您的信息已保存"
         else:
             message = "学号填写错误"
             error = app.errors

@@ -40,8 +40,8 @@ class RegisterForm(forms.Form):
     phone = forms.CharField(label='手机', widget=forms.TextInput(
         attrs={'class': 'form-control'}), validators=[phone_valid, ])
 
-    self_introduction = forms.CharField(
-        label="自我介绍", max_length=640, widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 6, 'cols': 40, 'placeholder': '简单介绍一下自己吧'}))
+    self_introduction = forms.CharField(error_message={'invalid': '请填写自我介绍'},
+                                        label="自我介绍", max_length=640, widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 6, 'cols': 40, 'placeholder': '简单介绍一下自己吧'}))
 
 
 class ApplicationForm(forms.ModelForm):
