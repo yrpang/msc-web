@@ -31,7 +31,7 @@
                 <div class="alert alert-warning">{{ message }}</div>
                 {% endif %}
 
-
+                <h3>技术部</h3>
                 <h4>科研</h4>
                 {% for form in formset %}
                 {% ifequal form.auto_id|f1 '科研' %}
@@ -47,7 +47,7 @@
                 {% endifequal %}
                 {% endfor %}
 
-                <h3>技术部</h3>
+                
                 <h4>硬件</h4>
                 {% for form in formset %}
                 {% ifequal form.auto_id|f1 '硬件' %}
