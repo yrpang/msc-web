@@ -22,12 +22,30 @@
         <div class="col-md-6 col-md-offset-3">
             <h1 class="text-center">福利题</h1>
 
+
+
             <form class='form-login' action="/tests" id="answer" method="post">
                 {{ formset.management_form }}
                 {% csrf_token %}
                 {% if message %}
                 <div class="alert alert-warning">{{ message }}</div>
                 {% endif %}
+
+
+                <h4>科研</h4>
+                {% for form in formset %}
+                {% ifequal form.auto_id|f1 '科研' %}
+                <div class="form-group">
+                    <label>{{ form.label }} </label>
+                    <span class="help-block">
+                        {{ form.help_text|markdown|safe}}
+                    </span>
+                    {% if form.auto_id not in dis %}
+                    {{form}}
+                    {% endif %}
+                </div>
+                {% endifequal %}
+                {% endfor %}
 
                 <h3>技术部</h3>
                 <h4>硬件</h4>
@@ -77,20 +95,7 @@
 
 
 
-                <h4>科研</h4>
-                {% for form in formset %}
-                {% ifequal form.auto_id|f1 '科研' %}
-                <div class="form-group">
-                    <label>{{ form.label }} </label>
-                    <span class="help-block">
-                        {{ form.help_text|markdown|safe}}
-                    </span>
-                    {% if form.auto_id not in dis %}
-                    {{form}}
-                    {% endif %}
-                </div>
-                {% endifequal %}
-                {% endfor %}
+                
 
                 <h4>应用数学</h4>
                 {% for form in formset %}
