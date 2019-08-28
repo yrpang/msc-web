@@ -28,35 +28,6 @@
                 {% if message %}
                 <div class="alert alert-warning">{{ message }}</div>
                 {% endif %}
-                <h3>媒体部</h3>
-                {% for form in formset %}
-                {% ifequal form.auto_id|f1 '媒体部' %}
-                <div class="form-group">
-                    <label>{{ form.label }} </label>
-                    <span class="help-block">
-                        {{ form.help_text|markdown|safe}}
-                    </span>
-                    {% if form.auto_id not in dis %}
-                    {{form}}
-                    {% endif %}
-                </div>
-                {% endifequal %}
-                {% endfor %}
-
-                <h3>活动部</h3>
-                {% for form in formset %}
-                {% ifequal form.auto_id|f1 '活动部' %}
-                <div class="form-group">
-                    <label>{{ form.label }} </label>
-                    <span class="help-block">
-                        {{ form.help_text|markdown|safe}}
-                    </span>
-                    {% if form.auto_id not in dis %}
-                    {{form}}
-                    {% endif %}
-                </div>
-                {% endifequal %}
-                {% endfor %}
 
                 <h3>技术部</h3>
                 <h4>硬件</h4>
@@ -154,6 +125,40 @@
                 </div>
                 {% endifequal %}
                 {% endfor %}
+
+
+
+                <h3>媒体部</h3>
+                {% for form in formset %}
+                {% ifequal form.auto_id|f1 '媒体部' %}
+                <div class="form-group">
+                    <label>{{ form.label }} </label>
+                    <span class="help-block">
+                        {{ form.help_text|markdown|safe}}
+                    </span>
+                    {% if form.auto_id not in dis %}
+                    {{form}}
+                    {% endif %}
+                </div>
+                {% endifequal %}
+                {% endfor %}
+
+                <h3>活动部</h3>
+                {% for form in formset %}
+                {% ifequal form.auto_id|f1 '活动部' %}
+                <div class="form-group">
+                    <label>{{ form.label }} </label>
+                    <span class="help-block">
+                        {{ form.help_text|markdown|safe}}
+                    </span>
+                    {% if form.auto_id not in dis %}
+                    {{form}}
+                    {% endif %}
+                </div>
+                {% endifequal %}
+                {% endfor %}
+
+                
                 <button type="reset" class="btn btn-default pull-left">重置</button>
                 <button type="submit" class="btn btn-primary pull-right ">保存</button>
             </form>
