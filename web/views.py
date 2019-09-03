@@ -363,6 +363,9 @@ def Dalao(request):
         magic_code.delete()
         message = '您的神秘代码已过期，请联系mentor重新索要'
         return render(request, 'dalao.html', locals())
+    elif magic_code.user.if_dalao == True:
+        message = '您已经验证过了，无需重复操作！'
+        return render(request, 'dalao.html', locals())
     else:
         magic_code.user.if_dalao = True
         magic_code.user.status = 1
