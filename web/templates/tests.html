@@ -32,7 +32,7 @@
                 {% endif %}
 
                 <div class="panel-group" id="accordion">
-                    <h3>技术部(点击标题展开对应组的题目)</h3>
+                    <h3>技术部(点击标题展开题目)</h3>
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
@@ -96,8 +96,7 @@
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                                    ACM <a href="https://www.xdmsc.club/somehelp">点我查看帮助
-                                    </a>
+                                    ACM <a href="https://www.xdmsc.club/somehelp">(帮助)</a></a>
                             </h4>
                         </div>
                         <div id="collapseThree" class="panel-collapse collapse">
@@ -210,6 +209,8 @@
                     </div>
 
                 </div>
+
+
                 <h3>媒体部</h3>
                 {% for form in formset %}
                 {% ifequal form.auto_id|f1 '媒体部' %}
@@ -246,7 +247,7 @@
             </form>
         </div>
     </div>
-</div> 
+</div>
 
 
 {% endblock content %}
