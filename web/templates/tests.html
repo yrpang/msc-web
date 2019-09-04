@@ -22,7 +22,6 @@
         <div class="col-md-6 col-md-offset-3">
             <h1 class="text-center">福利题</h1>
 
-
             <h2 class="text-center">提醒一下大家，写完题记得保存鸭！</h2>
             <form class='form-login' action="/tests" id="answer" method="post">
                 {{ formset.management_form }}
@@ -31,7 +30,7 @@
                 <div class="alert alert-warning">{{ message }}</div>
                 {% endif %}
 
-                <div class="panel-group" id="accordion">
+                <div class="panel-group" id="TechnologyGroup">
                     <h3>技术部(点击标题展开题目)</h3>
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -212,35 +211,70 @@
 
 
                 <h3>媒体部</h3>
-                {% for form in formset %}
-                {% ifequal form.auto_id|f1 '媒体部' %}
-                <div class="form-group">
-                    <label>{{ form.label }} </label>
-                    <span class="help-block">
-                        {{ form.help_text|markdown|safe}}
-                    </span>
-                    {% if form.auto_id not in dis %}
-                    {{form}}
-                    {% endif %}
+                <div class="panel-group" id="MediaGroup">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
+                                    点我展开
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseSeven" class="panel-collapse collapse">
+
+                            <div class="panel-body">
+                                {% for form in formset %}
+                                {% ifequal form.auto_id|f1 '媒体部' %}
+                                <div class="form-group">
+                                    <label>{{ form.label }} </label>
+                                    <span class="help-block">
+                                        {{ form.help_text|markdown|safe}}
+                                    </span>
+                                    {% if form.auto_id not in dis %}
+                                    {{form}}
+                                    {% endif %}
+                                </div>
+                                {% endifequal %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-                {% endifequal %}
-                {% endfor %}
+
 
                 <h3>活动部</h3>
-                {% for form in formset %}
-                {% ifequal form.auto_id|f1 '活动部' %}
-                <div class="form-group">
-                    <label>{{ form.label }} </label>
-                    <span class="help-block">
-                        {{ form.help_text|markdown|safe}}
-                    </span>
-                    {% if form.auto_id not in dis %}
-                    {{form}}
-                    {% endif %}
-                </div>
-                {% endifequal %}
-                {% endfor %}
 
+                <div class="panel-group" id="ActivatyGroup">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseEight">
+                                    点我展开
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseEight" class="panel-collapse collapse">
+
+                            <div class="panel-body">
+                                {% for form in formset %}
+                                {% ifequal form.auto_id|f1 '活动部' %}
+                                <div class="form-group">
+                                    <label>{{ form.label }} </label>
+                                    <span class="help-block">
+                                        {{ form.help_text|markdown|safe}}
+                                    </span>
+                                    {% if form.auto_id not in dis %}
+                                    {{form}}
+                                    {% endif %}
+                                </div>
+                                {% endifequal %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
 
                 <button type="reset" class="btn btn-default pull-left">重置</button>
                 <button type="submit" class="btn btn-primary pull-right ">保存</button>
