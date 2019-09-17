@@ -393,4 +393,8 @@ def send_time_mail(email):
     msg = EmailMultiAlternatives(
         subject, text_content, settings.EMAIL_HOST_USER, [email])
     msg.attach_alternative(html_content, "text/html")
-    msg.send()
+    try:
+        msg.send(fail_silently=False)
+    except Exception as e:
+        print(e)
+
