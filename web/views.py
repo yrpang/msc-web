@@ -203,7 +203,7 @@ def tests(request):
                     models.Answers.objects.create(
                         user=user, question=q, answer=v)
         formset = MyAnswerForm(request.POST)
-        return render(request, 'tests.html', {'formset': formset, 'dis': ['id_媒体部_12', 'id_媒体部_14', 'id_媒体部_15', 'id_硬件_4'], 'message':'保存成功！'})
+        return render(request, 'tests.html', {'formset': formset, 'dis': ['id_媒体部_12', 'id_媒体部_14', 'id_媒体部_15', 'id_硬件_4'], 'message': '保存成功！'})
 
 
 @csrf_exempt
@@ -294,7 +294,7 @@ def edit(request):
                     message = "两次输入的密码不同！"
                     return render(request, 'login/edit.html', locals())
                 else:
-                    a= user[0]
+                    a = user[0]
                     a.password = hash_code(password1)
                     a.save()
                     request.session.flush()
@@ -375,3 +375,22 @@ def Dalao(request):
         message = '神秘代码验证通过，恭喜你获得免一面资格，请准时来参加二面哦！'
         send_qq_message("恭喜%s获得一面免试资格" % name)
         return render(request, 'dalao.html', locals())
+
+
+def send_time_mail(email):
+
+    subject = '西电MSC俱乐部一面通知'
+
+    text_content = '周三晚18: 30-22: 00将在大活522进行技术部：应用数学组、科研组、GAME组、硬件组、ACM组、web组的免试。请大家合理安排时间。无法免试的请戳管理！技术部一面可以去多个部门免试，但是最后只能选择一个组。'
+
+    html_content = '''
+                    <p>西电MSC俱乐部一面通知</p>
+                    <p>各位萌新们：</p>
+                    <p>    周三晚18:30-22:00将在大活522进行技术部：应用数学组、科研组、GAME组、硬件组、ACM组、web组的免试。</p>
+                    <p>    请大家合理安排时间。无法免试的请戳管理！技术部一面可以去多个部门免试，但是最后只能选择一个组。</p>
+                '''
+
+    msg = EmailMultiAlternatives(
+        subject, text_content, settings.EMAIL_HOST_USER, [email])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
