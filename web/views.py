@@ -405,7 +405,8 @@ def send_time_mail(email:list):
 
     try:
         send_mail(
-            '西电微软俱乐部一面通知', '周三晚18:30-22:00将在大活522进行技术部：应用数学组、科研组、GAME组、硬件组、ACM组、web组的面试。请大家合理安排时间。无法面试的请戳管理！技术部一面可以去多个部门面试，但是最后只能选择一个组。', settings.EMAIL_HOST_USER, email)
+            '西电微软俱乐部一面通知', '周三晚18:30-22:00将在大活522进行技术部：应用数学组、科研组、GAME组、硬件组、ACM组、web组的面试。请大家合理安排时间。无法面试的请戳管理！技术部一面可以去多个部门面试，但是最后只能选择一个组。', settings.EMAIL_HOST_USER, email, html_message=html_content)
     except Exception as e:
         print(e)
+
 
