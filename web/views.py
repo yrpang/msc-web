@@ -1,3 +1,4 @@
+import csv
 from django.shortcuts import render, redirect
 from . import models
 from .forms import UserForm, RegisterForm, ApplicationForm, EditForm
@@ -377,7 +378,7 @@ def Dalao(request):
         return render(request, 'dalao.html', locals())
 
 
-def send_time_mail(email:list):
+def send_time_mail(email: list):
 
     subject = '西电MSC俱乐部一面通知'
 
@@ -410,3 +411,10 @@ def send_time_mail(email:list):
         print(e)
 
 
+def export_excel():
+    with open('data20190919.csv', 'w') as f:
+        writer = csv.writer(f)
+        data = models.User.objects.filter(has_confirmed=True, if_dalao=False).values_list(
+            'phone', 'name', 'application__mentor__name', 'application__group')
+        for i in data:
+            writer.writerow(i)
