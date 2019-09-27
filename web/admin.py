@@ -18,9 +18,22 @@ class AnswersInline(admin.StackedInline):
         qs = super(AnswersInline, self).get_queryset(request)
         return qs.order_by('question__category')
 
+class AppForm(forms.ModelForm):
+    # status = forms.Select(widget=forms.RadioSelect())
+    class Meta:
+        model = Application
+        fields = ['mentor']
+        # widgets = {
+        #     'status': forms.Select()
+        # }
+ 
+
+
 
 class ApplicationInline(admin.TabularInline):
     model = Application
+    readonly_fields=['something','stu_num','college']
+    # form = AppForm
 
 
 class MentorFilter(admin.SimpleListFilter):
@@ -54,20 +67,29 @@ class GroupFilter(admin.SimpleListFilter):
         else:
             return queryset.filter(application__group__contains=self.value())
 
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['status']
+        widgets = {
+            'status': forms.RadioSelect()
+        }
+ 
 
 class UserAdmin(admin.ModelAdmin):
+    form = UserForm
     list_display = ('name', 'status', 'sex', 'email',
                     'mentor_list', 'application', 'c_time', 'has_confirmed', 'if_dalao')
     list_filter = ('sex', 'status', GroupFilter, MentorFilter)
-    search_fields = ('name',)
+    search_fields = ('name','qq','phone')
     list_per_page = 20
     ordering = ('-c_time',)
     list_editable = ('status',)
     inlines = [ApplicationInline, AnswersInline]
     actions = ['set_as_dalao']
 
-    readonly_fields = ('name', 'sex', 'email', 'birth',
-                       'qq', 'phone', 'self_introduction')
+    # readonly_fields = ('name', 'sex', 'email', 'birth',
+    #                    'qq', 'phone', 'self_introduction')
     fieldsets = (
         ('基本信息', {
             "fields": (
@@ -76,7 +98,7 @@ class UserAdmin(admin.ModelAdmin):
         }),
         ('面试状态', {
             "fields": (
-                'status', 'something'
+                'status', 'something','has_confirmed'
             ),
         }),
     )
