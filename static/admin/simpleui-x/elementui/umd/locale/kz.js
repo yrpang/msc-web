@@ -84,7 +84,8 @@
       cascader: {
         noMatch: 'Сәйкес деректер жоқ',
         loading: 'Жүктелуде',
-        placeholder: 'Таңдаңыз'
+        placeholder: 'Таңдаңыз',
+        noData: 'Деректер жоқ'
       },
       pagination: {
         goto: 'Бару',
@@ -124,6 +125,13 @@
       },
       image: {
         error: 'FAILED' // to be translated
+      },
+      pageHeader: {
+        title: 'Back' // to be translated
+      },
+      popconfirm: {
+        confirmButtonText: 'Yes', // to be translated
+        cancelButtonText: 'No' // to be translated
       }
     }
   };

@@ -70,7 +70,8 @@ exports.default = {
     cascader: {
       noMatch: 'Nu există date potrivite',
       loading: 'Se încarcă',
-      placeholder: 'Selectează'
+      placeholder: 'Selectează',
+      noData: 'Nu există date'
     },
     pagination: {
       goto: 'Go to',
@@ -110,6 +111,13 @@ exports.default = {
     },
     image: {
       error: 'FAILED' // to be translated
+    },
+    pageHeader: {
+      title: 'Back' // to be translated
+    },
+    popconfirm: {
+      confirmButtonText: 'Yes', // to be translated
+      cancelButtonText: 'No' // to be translated
     }
   }
 };

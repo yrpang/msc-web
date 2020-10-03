@@ -23,7 +23,7 @@ exports.default = {
       nextYear: 'Pròxim Any',
       prevMonth: 'Mes anterior',
       nextMonth: 'Pròxim Mes',
-      year: 'Any',
+      year: '',
       month1: 'Gener',
       month2: 'Febrer',
       month3: 'Març',
@@ -70,7 +70,8 @@ exports.default = {
     cascader: {
       noMatch: 'No hi ha dades que coincideixin',
       loading: 'Carregant',
-      placeholder: 'Seleccionar'
+      placeholder: 'Seleccionar',
+      noData: 'Sense Dades'
     },
     pagination: {
       goto: 'Anar a',
@@ -108,7 +109,14 @@ exports.default = {
       hasCheckedFormat: '{checked}/{total} seleccionats'
     },
     image: {
-      error: 'FAILED' // to be translated
+      error: 'HA FALLAT'
+    },
+    pageHeader: {
+      title: 'Tornar'
+    },
+    popconfirm: {
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No'
     }
   }
 };

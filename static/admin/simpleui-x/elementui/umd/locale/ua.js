@@ -84,7 +84,8 @@
       cascader: {
         noMatch: 'Співпадінь не знайдено',
         loading: 'Завантаження',
-        placeholder: 'Обрати'
+        placeholder: 'Обрати',
+        noData: 'Немає даних'
       },
       pagination: {
         goto: 'Перейти',
@@ -124,6 +125,13 @@
       },
       image: {
         error: 'FAILED' // to be translated
+      },
+      pageHeader: {
+        title: 'Back' // to be translated
+      },
+      popconfirm: {
+        confirmButtonText: 'Yes', // to be translated
+        cancelButtonText: 'No' // to be translated
       }
     }
   };

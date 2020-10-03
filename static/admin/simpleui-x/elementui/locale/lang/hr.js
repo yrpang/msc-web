@@ -70,7 +70,8 @@ exports.default = {
     cascader: {
       noMatch: 'Nema pronađenih podataka',
       loading: 'Učitavanje',
-      placeholder: 'Izaberi'
+      placeholder: 'Izaberi',
+      noData: 'Nema podataka'
     },
     pagination: {
       goto: 'Idi na',
@@ -110,6 +111,13 @@ exports.default = {
     },
     image: {
       error: 'FAILED' // to be translated
+    },
+    pageHeader: {
+      title: 'Back' // to be translated
+    },
+    popconfirm: {
+      confirmButtonText: 'Yes', // to be translated
+      cancelButtonText: 'No' // to be translated
     }
   }
 };

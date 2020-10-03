@@ -111,11 +111,17 @@ html, body {
 
 .simpleui-table tr {
   height: 35px;
+
+  &:hover {
+    th, td {
+      background-color: inherit !important;
+    }
+  }
 }
 
 .simpleui-table tr th {
   text-align: right;
-  width: 60px;
+  //width: 60px;
   border-bottom: #eaeef5 1px solid;
 }
 
@@ -201,6 +207,13 @@ html, body {
   margin: 10px 0px;
   float: none;
   width: 100%;
+}
+
+#home {
+  .upgrade {
+    color: #1db393;
+    font-size: 16px;
+  }
 }
 
 .el-breadcrumb__item .fas {
@@ -357,6 +370,14 @@ html, body {
   margin: 10px;
   border: #FFF 1px solid;
 
+  .card-name {
+    height: 25px;
+    overflow: hidden;
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .icon {
     display: block;
     text-align: center;
@@ -388,11 +409,13 @@ html, body {
 }
 
 .menu {
-  overflow-x:hidden ;
+  overflow-x: hidden;
   /*滚动条样式*/
-  .el-icon-arrow-right{
+
+  .el-icon-arrow-right {
     display: none;
   }
+
   &::-webkit-scrollbar {
     width: 4px;
   }
@@ -407,5 +430,11 @@ html, body {
     -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
     border-radius: 0;
     background: rgba(0, 0, 0, 0.1);
+  }
+}
+
+.lite-menus {
+  .el-submenu__title:hover, .is-opened .el-submenu__title {
+    color: white !important;
   }
 }

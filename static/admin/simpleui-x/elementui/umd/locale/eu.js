@@ -84,7 +84,8 @@
       cascader: {
         noMatch: 'Bat datorren daturik ez',
         loading: 'Kargatzen',
-        placeholder: 'Hautatu'
+        placeholder: 'Hautatu',
+        noData: 'Daturik ez'
       },
       pagination: {
         goto: 'Joan',
@@ -124,6 +125,13 @@
       },
       image: {
         error: 'FAILED' // to be translated
+      },
+      pageHeader: {
+        title: 'Back' // to be translated
+      },
+      popconfirm: {
+        confirmButtonText: 'Yes', // to be translated
+        cancelButtonText: 'No' // to be translated
       }
     }
   };

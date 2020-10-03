@@ -83,7 +83,8 @@
       cascader: {
         noMatch: 'Nincs találat',
         loading: 'Betöltés',
-        placeholder: 'Válassz'
+        placeholder: 'Válassz',
+        noData: 'Nincs adat'
       },
       pagination: {
         goto: 'Ugrás',
@@ -123,6 +124,13 @@
       },
       image: {
         error: 'FAILED' // to be translated
+      },
+      pageHeader: {
+        title: 'Back' // to be translated
+      },
+      popconfirm: {
+        confirmButtonText: 'Yes', // to be translated
+        cancelButtonText: 'No' // to be translated
       }
     }
   };

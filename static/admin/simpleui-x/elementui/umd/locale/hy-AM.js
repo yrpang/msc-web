@@ -84,7 +84,8 @@
       cascader: {
         noMatch: 'Համապատասխան տուեալներ չկան',
         loading: 'Բեռնում',
-        placeholder: 'Ընտրել'
+        placeholder: 'Ընտրել',
+        noData: 'Տվյալներ չկան'
       },
       pagination: {
         goto: 'Անցնել',
@@ -124,6 +125,13 @@
       },
       image: {
         error: 'FAILED' // to be translated
+      },
+      pageHeader: {
+        title: 'Back' // to be translated
+      },
+      popconfirm: {
+        confirmButtonText: 'Yes', // to be translated
+        cancelButtonText: 'No' // to be translated
       }
     }
   };

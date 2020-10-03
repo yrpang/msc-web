@@ -156,7 +156,12 @@ function normalizeComponent (
     options._ssrRegister = hook
   } else if (injectStyles) {
     hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      ? function () {
+        injectStyles.call(
+          this,
+          (options.functional ? this.parent : this).$root.$options.shadowRoot
+        )
+      }
       : injectStyles
   }
 
@@ -165,7 +170,7 @@ function normalizeComponent (
       // for template-only hot-reload because in that case the render fn doesn't
       // go through the normalizer
       options._injectStyles = hook
-      // register for functioal component in vue file
+      // register for functional component in vue file
       var originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
@@ -193,9 +198,10 @@ function normalizeComponent (
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/progress/src/progress.vue?vue&type=template&id=229ee406&
+// CONCATENATED MODULE: ./node_modules/_vue-loader@15.9.3@vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/_vue-loader@15.9.3@vue-loader/lib??vue-loader-options!./packages/progress/src/progress.vue?vue&type=template&id=229ee406&
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -240,7 +246,7 @@ var render = function() {
                       ? _c(
                           "div",
                           { staticClass: "el-progress-bar__innerText" },
-                          [_vm._v(_vm._s(_vm.percentage) + "%")]
+                          [_vm._v(_vm._s(_vm.content))]
                         )
                       : _vm._e()
                   ]
@@ -258,6 +264,7 @@ var render = function() {
               _c("svg", { attrs: { viewBox: "0 0 100 100" } }, [
                 _c("path", {
                   staticClass: "el-progress-circle__track",
+                  style: _vm.trailPathStyle,
                   attrs: {
                     d: _vm.trackPath,
                     stroke: "#e5e9f2",
@@ -270,10 +277,10 @@ var render = function() {
                   style: _vm.circlePathStyle,
                   attrs: {
                     d: _vm.trackPath,
-                    "stroke-linecap": "round",
                     stroke: _vm.stroke,
-                    "stroke-width": _vm.relativeStrokeWidth,
-                    fill: "none"
+                    fill: "none",
+                    "stroke-linecap": _vm.strokeLinecap,
+                    "stroke-width": _vm.percentage ? _vm.relativeStrokeWidth : 0
                   }
                 })
               ])
@@ -288,12 +295,8 @@ var render = function() {
             },
             [
               !_vm.status
-                ? [_vm._v(_vm._s(_vm.percentage) + "%")]
-                : [
-                    _vm.status === "text"
-                      ? _vm._t("default")
-                      : _c("i", { class: _vm.iconClass })
-                  ]
+                ? [_vm._v(_vm._s(_vm.content))]
+                : _c("i", { class: _vm.iconClass })
             ],
             2
           )
@@ -307,7 +310,21 @@ render._withStripped = true
 
 // CONCATENATED MODULE: ./packages/progress/src/progress.vue?vue&type=template&id=229ee406&
 
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options!./packages/progress/src/progress.vue?vue&type=script&lang=js&
+// CONCATENATED MODULE: ./node_modules/_babel-loader@7.1.5@babel-loader/lib!./node_modules/_vue-loader@15.9.3@vue-loader/lib??vue-loader-options!./packages/progress/src/progress.vue?vue&type=script&lang=js&
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -354,7 +371,7 @@ render._withStripped = true
       type: String,
       default: 'line',
       validator: function validator(val) {
-        return ['line', 'circle'].indexOf(val) > -1;
+        return ['line', 'circle', 'dashboard'].indexOf(val) > -1;
       }
     },
     percentage: {
@@ -368,12 +385,16 @@ render._withStripped = true
     status: {
       type: String,
       validator: function validator(val) {
-        return ['text', 'success', 'exception'].indexOf(val) > -1;
+        return ['success', 'exception', 'warning'].indexOf(val) > -1;
       }
     },
     strokeWidth: {
       type: Number,
       default: 6
+    },
+    strokeLinecap: {
+      type: String,
+      default: 'round'
     },
     textInside: {
       type: Boolean,
@@ -388,41 +409,60 @@ render._withStripped = true
       default: true
     },
     color: {
-      type: String,
+      type: [String, Array, Function],
       default: ''
-    }
+    },
+    format: Function
   },
   computed: {
     barStyle: function barStyle() {
       var style = {};
       style.width = this.percentage + '%';
-      style.backgroundColor = this.color;
+      style.backgroundColor = this.getCurrentColor(this.percentage);
       return style;
     },
     relativeStrokeWidth: function relativeStrokeWidth() {
       return (this.strokeWidth / this.width * 100).toFixed(1);
     },
+    radius: function radius() {
+      if (this.type === 'circle' || this.type === 'dashboard') {
+        return parseInt(50 - parseFloat(this.relativeStrokeWidth) / 2, 10);
+      } else {
+        return 0;
+      }
+    },
     trackPath: function trackPath() {
-      var radius = parseInt(50 - parseFloat(this.relativeStrokeWidth) / 2, 10);
-
-      return 'M 50 50 m 0 -' + radius + ' a ' + radius + ' ' + radius + ' 0 1 1 0 ' + radius * 2 + ' a ' + radius + ' ' + radius + ' 0 1 1 0 -' + radius * 2;
+      var radius = this.radius;
+      var isDashboard = this.type === 'dashboard';
+      return '\n        M 50 50\n        m 0 ' + (isDashboard ? '' : '-') + radius + '\n        a ' + radius + ' ' + radius + ' 0 1 1 0 ' + (isDashboard ? '-' : '') + radius * 2 + '\n        a ' + radius + ' ' + radius + ' 0 1 1 0 ' + (isDashboard ? '' : '-') + radius * 2 + '\n        ';
     },
     perimeter: function perimeter() {
-      var radius = 50 - parseFloat(this.relativeStrokeWidth) / 2;
-      return 2 * Math.PI * radius;
+      return 2 * Math.PI * this.radius;
+    },
+    rate: function rate() {
+      return this.type === 'dashboard' ? 0.75 : 1;
+    },
+    strokeDashoffset: function strokeDashoffset() {
+      var offset = -1 * this.perimeter * (1 - this.rate) / 2;
+      return offset + 'px';
+    },
+    trailPathStyle: function trailPathStyle() {
+      return {
+        strokeDasharray: this.perimeter * this.rate + 'px, ' + this.perimeter + 'px',
+        strokeDashoffset: this.strokeDashoffset
+      };
     },
     circlePathStyle: function circlePathStyle() {
-      var perimeter = this.perimeter;
       return {
-        strokeDasharray: perimeter + 'px,' + perimeter + 'px',
-        strokeDashoffset: (1 - this.percentage / 100) * perimeter + 'px',
-        transition: 'stroke-dashoffset 0.6s ease 0s, stroke 0.6s ease'
+        strokeDasharray: this.perimeter * this.rate * (this.percentage / 100) + 'px, ' + this.perimeter + 'px',
+        strokeDashoffset: this.strokeDashoffset,
+        transition: 'stroke-dasharray 0.6s ease 0s, stroke 0.6s ease'
       };
     },
     stroke: function stroke() {
       var ret = void 0;
       if (this.color) {
-        ret = this.color;
+        ret = this.getCurrentColor(this.percentage);
       } else {
         switch (this.status) {
           case 'success':
@@ -431,6 +471,9 @@ render._withStripped = true
           case 'exception':
             ret = '#ff4949';
             break;
+          case 'warning':
+            ret = '#e6a23c';
+            break;
           default:
             ret = '#20a0ff';
         }
@@ -438,6 +481,9 @@ render._withStripped = true
       return ret;
     },
     iconClass: function iconClass() {
+      if (this.status === 'warning') {
+        return 'el-icon-warning';
+      }
       if (this.type === 'line') {
         return this.status === 'success' ? 'el-icon-circle-check' : 'el-icon-circle-close';
       } else {
@@ -446,12 +492,55 @@ render._withStripped = true
     },
     progressTextSize: function progressTextSize() {
       return this.type === 'line' ? 12 + this.strokeWidth * 0.4 : this.width * 0.111111 + 2;
+    },
+    content: function content() {
+      if (typeof this.format === 'function') {
+        return this.format(this.percentage) || '';
+      } else {
+        return this.percentage + '%';
+      }
+    }
+  },
+  methods: {
+    getCurrentColor: function getCurrentColor(percentage) {
+      if (typeof this.color === 'function') {
+        return this.color(percentage);
+      } else if (typeof this.color === 'string') {
+        return this.color;
+      } else {
+        return this.getLevelColor(percentage);
+      }
+    },
+    getLevelColor: function getLevelColor(percentage) {
+      var colorArray = this.getColorArray().sort(function (a, b) {
+        return a.percentage - b.percentage;
+      });
+
+      for (var i = 0; i < colorArray.length; i++) {
+        if (colorArray[i].percentage > percentage) {
+          return colorArray[i].color;
+        }
+      }
+      return colorArray[colorArray.length - 1].color;
+    },
+    getColorArray: function getColorArray() {
+      var color = this.color;
+      var span = 100 / color.length;
+      return color.map(function (seriesColor, index) {
+        if (typeof seriesColor === 'string') {
+          return {
+            color: seriesColor,
+            progress: (index + 1) * span
+          };
+        }
+        return seriesColor;
+      });
     }
   }
 });
 // CONCATENATED MODULE: ./packages/progress/src/progress.vue?vue&type=script&lang=js&
  /* harmony default export */ var src_progressvue_type_script_lang_js_ = (progressvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+// EXTERNAL MODULE: ./node_modules/_vue-loader@15.9.3@vue-loader/lib/runtime/componentNormalizer.js
 var componentNormalizer = __webpack_require__(0);
 
 // CONCATENATED MODULE: ./packages/progress/src/progress.vue

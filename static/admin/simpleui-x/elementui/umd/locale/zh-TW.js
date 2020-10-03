@@ -84,7 +84,8 @@
       cascader: {
         noMatch: '無匹配資料',
         loading: '加載中',
-        placeholder: '請選擇'
+        placeholder: '請選擇',
+        noData: '無資料'
       },
       pagination: {
         goto: '前往',
@@ -124,6 +125,13 @@
       },
       image: {
         error: '加載失敗'
+      },
+      pageHeader: {
+        title: '返回'
+      },
+      popconfirm: {
+        confirmButtonText: 'Yes', // to be translated
+        cancelButtonText: 'No' // to be translated
       }
     }
   };

@@ -84,7 +84,8 @@
       cascader: {
         noMatch: 'Тохирох өгөгдөл байхгүй',
         loading: 'Ачаалж байна',
-        placeholder: 'Сонгох'
+        placeholder: 'Сонгох',
+        noData: 'Өгөгдөл байхгүй'
       },
       pagination: {
         goto: 'Очих',
@@ -124,6 +125,13 @@
       },
       image: {
         error: 'FAILED' // to be translated
+      },
+      pageHeader: {
+        title: 'Back' // to be translated
+      },
+      popconfirm: {
+        confirmButtonText: 'Yes', // to be translated
+        cancelButtonText: 'No' // to be translated
       }
     }
   };

@@ -70,7 +70,8 @@ exports.default = {
     cascader: {
       noMatch: 'No hay datos que coincidan',
       loading: 'Cargando',
-      placeholder: 'Seleccionar'
+      placeholder: 'Seleccionar',
+      noData: 'Sin datos'
     },
     pagination: {
       goto: 'Ir a',
@@ -108,7 +109,14 @@ exports.default = {
       hasCheckedFormat: '{checked}/{total} revisados'
     },
     image: {
-      error: 'FAILED' // to be translated
+      error: 'HA FALLADO'
+    },
+    pageHeader: {
+      title: 'Volver'
+    },
+    popconfirm: {
+      confirmButtonText: 'Si',
+      cancelButtonText: 'No'
     }
   }
 };

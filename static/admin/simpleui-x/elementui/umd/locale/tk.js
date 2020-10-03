@@ -84,7 +84,8 @@
       cascader: {
         noMatch: 'Hiçzat tapylmady',
         loading: 'Indirilýär',
-        placeholder: 'Saýlaň'
+        placeholder: 'Saýlaň',
+        noData: 'Hiçzat ýok'
       },
       pagination: {
         goto: 'Git',
@@ -124,6 +125,13 @@
       },
       image: {
         error: 'FAILED' // to be translated
+      },
+      pageHeader: {
+        title: 'Back' // to be translated
+      },
+      popconfirm: {
+        confirmButtonText: 'Yes', // to be translated
+        cancelButtonText: 'No' // to be translated
       }
     }
   };

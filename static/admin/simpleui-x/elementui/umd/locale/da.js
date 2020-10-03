@@ -84,7 +84,8 @@
       cascader: {
         noMatch: 'Ingen matchende data',
         loading: 'Henter',
-        placeholder: 'Vælg'
+        placeholder: 'Vælg',
+        noData: 'Ingen data'
       },
       pagination: {
         goto: 'Gå til',
@@ -123,6 +124,13 @@
       },
       image: {
         error: 'FAILED' // to be translated
+      },
+      pageHeader: {
+        title: 'Back' // to be translated
+      },
+      popconfirm: {
+        confirmButtonText: 'Yes', // to be translated
+        cancelButtonText: 'No' // to be translated
       }
     }
   };

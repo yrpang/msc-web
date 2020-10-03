@@ -86,7 +86,8 @@
       cascader: {
         noMatch: 'Žádná shoda',
         loading: 'Načítání',
-        placeholder: 'Vybrat'
+        placeholder: 'Vybrat',
+        noData: 'Žádná data'
       },
       pagination: {
         goto: 'Jít na',
@@ -126,6 +127,13 @@
       },
       image: {
         error: 'FAILED' // to be translated
+      },
+      pageHeader: {
+        title: 'Back' // to be translated
+      },
+      popconfirm: {
+        confirmButtonText: 'Yes', // to be translated
+        cancelButtonText: 'No' // to be translated
       }
     }
   };

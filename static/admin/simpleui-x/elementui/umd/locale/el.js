@@ -84,7 +84,8 @@
       cascader: {
         noMatch: 'Δεν βρέθηκαν αποτελέσματα',
         loading: 'Φόρτωση',
-        placeholder: 'Επιλογή'
+        placeholder: 'Επιλογή',
+        noData: 'Χωρίς δεδομένα'
       },
       pagination: {
         goto: 'Μετάβαση σε',
@@ -124,6 +125,13 @@
       },
       image: {
         error: 'FAILED' // to be translated
+      },
+      pageHeader: {
+        title: 'Back' // to be translated
+      },
+      popconfirm: {
+        confirmButtonText: 'Yes', // to be translated
+        cancelButtonText: 'No' // to be translated
       }
     }
   };
