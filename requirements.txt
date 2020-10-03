@@ -1,6 +1,6 @@
 certifi==2019.6.16
 chardet==3.0.4
-Django==2.2.8
+Django==2.2.13
 django-mdeditor==0.1.16
 django-simpleui==2.7
 idna==2.8
